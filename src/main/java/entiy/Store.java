@@ -1,61 +1,73 @@
 package entiy;
 
-public class consumer {
-	
-	private long consumerId;
+public class Store {
+	 
+	private long storeId;
 	private String name;
+	private long addressId;
 	private String telNum;
-	private boolean sex;
 	private String password;
 	
-	public consumer() {
+	public Store() {
 		
 	}
-	public consumer(long consumerId, String name, String telNum, boolean sex, String password) {
+	
+	public Store(long storeId, String name, long addressId, String telNum, String password) {
 		super();
-		this.consumerId = consumerId;
+		this.storeId = storeId;
 		this.name = name;
+		this.addressId = addressId;
 		this.telNum = telNum;
-		this.sex = sex;
 		this.password = password;
 	}
-	
-	public long getConsumerId() {
-		return consumerId;
+
+	public long getStoreId() {
+		return storeId;
 	}
-	public void setConsumerId(long consumerId) {
-		this.consumerId = consumerId;
+
+	public void setStoreId(long storeId) {
+		this.storeId = storeId;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public long getAddressId() {
+		return addressId;
+	}
+
+	public void setAddress(long addressId) {
+		this.addressId = addressId;
+	}
+
 	public String getTelNum() {
 		return telNum;
 	}
+
 	public void setTelNum(String telNum) {
 		this.telNum = telNum;
 	}
-	public boolean isSex() {
-		return sex;
-	}
-	public void setSex(boolean sex) {
-		this.sex = sex;
-	}
+
 	public String getPassword() {
 		return password;
 	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
 	@Override
 	public String toString() {
-		return "consumer [consumerId=" + consumerId + ", name=" + name + ", telNum=" + telNum + ", sex=" + sex
+		return "Store [storeId=" + storeId + ", name=" + name + ", addressId=" + addressId + ", telNum=" + telNum
 				+ ", password=" + password + "]";
 	}
+
+
 	
 	
 }
