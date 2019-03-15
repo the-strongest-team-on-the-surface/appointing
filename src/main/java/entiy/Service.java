@@ -4,7 +4,7 @@ public class Service {
 	 
 	private long serviceId;
 	private String name;
-	private String price;
+	private int price;
 	private int duration;
 	private long baberId;
 	
@@ -12,7 +12,7 @@ public class Service {
 		
 	}
 	
-	public Service(long serviceId, String name, String price, int duration, long baberId) {
+	public Service(long serviceId, String name, int price, int duration, long baberId) {
 		super();
 		this.serviceId = serviceId;
 		this.name = name;
@@ -37,11 +37,11 @@ public class Service {
 		this.name = name;
 	}
 
-	public String getPrice() {
+	public int getPrice() {
 		return price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(int price) {
 		this.price = price;
 	}
 

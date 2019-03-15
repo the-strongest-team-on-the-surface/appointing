@@ -9,12 +9,15 @@ public class Baber {
 	private boolean isWorking;
 	private long storeId;
 	private String password;
+	private String defaultWorkingTimePeriod;
+	private String actualWorkingTimePeriod;
 	
 	public Baber() {
 		
 	}
-	
-	public Baber(long baberId, String name, String telNum, boolean sex, boolean isWorking, long storeId, String password) {
+
+	public Baber(long baberId, String name, String telNum, boolean sex, boolean isWorking, long storeId,
+			String password, String defaultWorkingTimePeriod, String actualWorkingTimePeriod) {
 		super();
 		this.baberId = baberId;
 		this.name = name;
@@ -23,6 +26,8 @@ public class Baber {
 		this.isWorking = isWorking;
 		this.storeId = storeId;
 		this.password = password;
+		this.defaultWorkingTimePeriod = defaultWorkingTimePeriod;
+		this.actualWorkingTimePeriod = actualWorkingTimePeriod;
 	}
 
 	public long getBaberId() {
@@ -81,12 +86,29 @@ public class Baber {
 		this.password = password;
 	}
 
+	public String getDefaultWorkingTimePeriod() {
+		return defaultWorkingTimePeriod;
+	}
+
+	public void setDefaultWorkingTimePeriod(String defaultWorkingTimePeriod) {
+		this.defaultWorkingTimePeriod = defaultWorkingTimePeriod;
+	}
+
+	public String getActualWorkingTimePeriod() {
+		return actualWorkingTimePeriod;
+	}
+
+	public void setActualWorkingTimePeriod(String actualWorkingTimePeriod) {
+		this.actualWorkingTimePeriod = actualWorkingTimePeriod;
+	}
+
 	@Override
 	public String toString() {
 		return "Baber [baberId=" + baberId + ", name=" + name + ", telNum=" + telNum + ", sex=" + sex + ", isWorking="
-				+ isWorking + ", storeId=" + storeId + ", password=" + password + "]";
+				+ isWorking + ", storeId=" + storeId + ", password=" + password + ", defaultWorkingTimePeriod="
+				+ defaultWorkingTimePeriod + ", actualWorkingTimePeriod=" + actualWorkingTimePeriod + "]";
 	}
 	
-	
+
 	
 }

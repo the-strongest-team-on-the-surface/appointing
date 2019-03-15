@@ -7,22 +7,20 @@ public class Appointing {
 	private long appointingId;
 	private long serviceId;
 	private String appointedTime;
-	private String endTime;
 	private String status;
 	
 	public Appointing() {
 		
 	}
-	
+
 	public Appointing(long consumerId, long baberId, long appointingId, long serviceId, String appointedTime,
-			String endTime, String status) {
+			String status) {
 		super();
 		this.consumerId = consumerId;
 		this.baberId = baberId;
 		this.appointingId = appointingId;
 		this.serviceId = serviceId;
 		this.appointedTime = appointedTime;
-		this.endTime = endTime;
 		this.status = status;
 	}
 
@@ -66,14 +64,6 @@ public class Appointing {
 		this.appointedTime = appointedTime;
 	}
 
-	public String getEndTime() {
-		return endTime;
-	}
-
-	public void setEndTime(String endTime) {
-		this.endTime = endTime;
-	}
-
 	public String getStatus() {
 		return status;
 	}
@@ -84,12 +74,10 @@ public class Appointing {
 
 	@Override
 	public String toString() {
-		return "appointing [consumerId=" + consumerId + ", baberId=" + baberId + ", appointingId=" + appointingId
-				+ ", serviceId=" + serviceId + ", appointedTime=" + appointedTime + ", endTime=" + endTime + ", status="
-				+ status + "]";
+		return "Appointing [consumerId=" + consumerId + ", baberId=" + baberId + ", appointingId=" + appointingId
+				+ ", serviceId=" + serviceId + ", appointedTime=" + appointedTime + ", status=" + status + "]";
 	}
 	
-	
-	
+
 	
 }

@@ -7,18 +7,20 @@ public class Store {
 	private long addressId;
 	private String telNum;
 	private String password;
+	private String detailedAddress;
 	
 	public Store() {
 		
 	}
-	
-	public Store(long storeId, String name, long addressId, String telNum, String password) {
+
+	public Store(long storeId, String name, long addressId, String telNum, String password, String detailedAddress) {
 		super();
 		this.storeId = storeId;
 		this.name = name;
 		this.addressId = addressId;
 		this.telNum = telNum;
 		this.password = password;
+		this.detailedAddress = detailedAddress;
 	}
 
 	public long getStoreId() {
@@ -41,7 +43,7 @@ public class Store {
 		return addressId;
 	}
 
-	public void setAddress(long addressId) {
+	public void setAddressId(long addressId) {
 		this.addressId = addressId;
 	}
 
@@ -61,13 +63,18 @@ public class Store {
 		this.password = password;
 	}
 
+	public String getDetailedAddress() {
+		return detailedAddress;
+	}
+
+	public void setDetailedAddress(String detailedAddress) {
+		this.detailedAddress = detailedAddress;
+	}
+
 	@Override
 	public String toString() {
 		return "Store [storeId=" + storeId + ", name=" + name + ", addressId=" + addressId + ", telNum=" + telNum
-				+ ", password=" + password + "]";
+				+ ", password=" + password + ", detailedAddress=" + detailedAddress + "]";
 	}
-
-
-	
 	
 }
