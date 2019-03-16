@@ -1,10 +1,14 @@
 package dao;
 
 import entiy.Address;
+
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface AddressDao {
-
-	Address quaryAddressInfo(@Param("id") int id);
+	
+	List<Address> quaryNextLevel(String code);
+	String quaryName(String code);
 	
 }

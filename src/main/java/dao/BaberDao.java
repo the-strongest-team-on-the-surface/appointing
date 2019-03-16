@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 public interface BaberDao {
 
-	Baber quaryBaberPassword(@Param("telNum") String telNum, @Param("password") String password);
+	String quaryBaberPassword(@Param("telNum") String telNum);
 	Baber quaryBaBerInfo(@Param("baberId") int baberId);
 	int insertBaberInfo(@Param("baberId") int baberId);
 	int changeBaberInfo(@Param("baberId") int baberId);

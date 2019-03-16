@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.AddressDao">
+
+	<select id="quaryNextLevel" parameterType="code" resultType="entiy.Address">
+		SELECT 
+			id,
+			name
+		FROM ADRESS
+		WHERE
+			parent_id = #{code}
+	</select>
+	
+	<select id="quaryName" parameterType="code" resultType="String">
+		SELECT 
+			name
+		FROM ADRESS
+		WHERE
+			code = #{code}
+	</select>
+</mapper>

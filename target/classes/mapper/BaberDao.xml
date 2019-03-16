@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.BaberDao">
+
+	<select id="quaryBaberPassword" parameterType="String" resultType="String" >
+		<!-- 具体的sql -->
+		SELECT
+			password
+		FROM
+			baber
+		WHERE
+			tel_num = #{telNum}
+	</select>
+	
+	<select id="quaryBaBerInfo" parameterType="int" resultType="entiy.Baber">
+		SELECT
+			baber_id,
+			name,
+			tel_num,
+			sex,
+			isWorking
+		FROM
+			baber
+		while
+			baber_id = #{baberId}
+	</select>
+	
+	
+	<insert id="insertBaberInfo">
+		INSERT ignore INTO baber(baber_id, name, tel_num, sex, is_working, Store_id, password, default_working_time_period, actual_working_time_period)
+		VALUES (#{baberId}, #{name}, #{telNum}, #{sex}, #{isWorking}, #{StoreId}, #{password}, #{defaultWorkingTimePeriod}, #{actualWorkingTimePeriod})
+	</insert>
+	
+	<update id="changeBaberInfo">
+		UPDATE baber
+			name, 
+			telNum, 
+			sex, 
+			is_working, 
+			Store_id, 
+			password, 
+			default_working_time_period, 
+			actual_working_time_period
+		SET
+			name = #{name},
+			telNum = #{telNum}, 
+			sex = #{sex}, 
+			is_working = #{isWorking}, 
+			Store_id = #{StoreId}, 
+			password = #{password}, 
+			default_working_time_period = #{defaultWorkingTimePeriod}, 
+			actual_working_time_period = #{actualWorkingTimePeriod}
+		WHERE
+			baber_id = #{baberId}
+	</update>
+	
+	<select id="quaryStoreBaber" parameterType="int" resultType="entiy.Baber">
+		SELECT *
+		FROM baber
+		WHERE baber_id = #{baberId}
+	
+	</select>
+	
+</mapper>
