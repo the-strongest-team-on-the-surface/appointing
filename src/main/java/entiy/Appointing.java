@@ -2,10 +2,10 @@ package entiy;
 
 public class Appointing {
 	
-	private long consumerId;
-	private long baberId;
-	private long appointingId;
-	private long serviceId;
+	private int consumerId;
+	private int baberId;
+	private int appointingId;
+	private int serviceId;
 	private String appointedTime;
 	private String status;
 	
@@ -13,7 +13,7 @@ public class Appointing {
 		
 	}
 
-	public Appointing(long consumerId, long baberId, long appointingId, long serviceId, String appointedTime,
+	public Appointing(int consumerId, int baberId, int appointingId, int serviceId, String appointedTime,
 			String status) {
 		super();
 		this.consumerId = consumerId;
@@ -24,35 +24,35 @@ public class Appointing {
 		this.status = status;
 	}
 
-	public long getConsumerId() {
+	public int getConsumerId() {
 		return consumerId;
 	}
 
-	public void setConsumerId(long consumerId) {
+	public void setConsumerId(int consumerId) {
 		this.consumerId = consumerId;
 	}
 
-	public long getBaberId() {
+	public int getBaberId() {
 		return baberId;
 	}
 
-	public void setBaberId(long baberId) {
+	public void setBaberId(int baberId) {
 		this.baberId = baberId;
 	}
 
-	public long getAppointingId() {
+	public int getAppointingId() {
 		return appointingId;
 	}
 
-	public void setAppointingId(long appointingId) {
+	public void setAppointingId(int appointingId) {
 		this.appointingId = appointingId;
 	}
 
-	public long getServiceId() {
+	public int getServiceId() {
 		return serviceId;
 	}
 
-	public void setServiceId(long serviceId) {
+	public void setServiceId(int serviceId) {
 		this.serviceId = serviceId;
 	}
 

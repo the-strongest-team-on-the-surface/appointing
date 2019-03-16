@@ -7,9 +7,9 @@ import org.apache.ibatis.annotations.Param;
 public interface StoreDao {
 
 	Store quaryStorePassword(@Param("telNum") String telNum, @Param("password") String password);
-	Store quaryStoreInfo(@Param("storeId") long storeId);
-	int insertStoreInfo(@Param("storeId") long storeId);
-	int changeStoreInfo(@Param("storeId") long storeId);
-	List<Store> quaryStoreStore(@Param("addressId") long addressId);
+	Store quaryStoreInfo(@Param("storeId") int storeId);
+	int insertStoreInfo(@Param("storeId") int storeId);
+	int changeStoreInfo(@Param("storeId") int storeId);
+	List<Store> quaryStoreStore(@Param("addressId") int addressId);
 	
 }

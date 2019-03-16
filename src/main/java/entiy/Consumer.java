@@ -2,7 +2,7 @@ package entiy;
 
 public class Consumer {
 	
-	private long consumerId;
+	private int consumerId;
 	private String name;
 	private String telNum;
 	private boolean sex;
@@ -11,7 +11,7 @@ public class Consumer {
 	public Consumer() {
 		
 	}
-	public Consumer(long consumerId, String name, String telNum, boolean sex, String password) {
+	public Consumer(int consumerId, String name, String telNum, boolean sex, String password) {
 		super();
 		this.consumerId = consumerId;
 		this.name = name;
@@ -20,10 +20,10 @@ public class Consumer {
 		this.password = password;
 	}
 	
-	public long getConsumerId() {
+	public int getConsumerId() {
 		return consumerId;
 	}
-	public void setConsumerId(long consumerId) {
+	public void setConsumerId(int consumerId) {
 		this.consumerId = consumerId;
 	}
 	public String getName() {

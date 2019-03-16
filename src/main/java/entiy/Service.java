@@ -2,17 +2,17 @@ package entiy;
 
 public class Service {
 	 
-	private long serviceId;
+	private int serviceId;
 	private String name;
 	private int price;
 	private int duration;
-	private long baberId;
+	private int baberId;
 	
 	public Service() {
 		
 	}
 	
-	public Service(long serviceId, String name, int price, int duration, long baberId) {
+	public Service(int serviceId, String name, int price, int duration, int baberId) {
 		super();
 		this.serviceId = serviceId;
 		this.name = name;
@@ -21,11 +21,11 @@ public class Service {
 		this.baberId = baberId;
 	}
 
-	public long getServiceId() {
+	public int getServiceId() {
 		return serviceId;
 	}
 
-	public void setServiceId(long serviceId) {
+	public void setServiceId(int serviceId) {
 		this.serviceId = serviceId;
 	}
 
@@ -53,11 +53,11 @@ public class Service {
 		this.duration = duration;
 	}
 
-	public long getBaberId() {
+	public int getBaberId() {
 		return baberId;
 	}
 
-	public void setBaberId(long baberId) {
+	public void setBaberId(int baberId) {
 		this.baberId = baberId;
 	}
 

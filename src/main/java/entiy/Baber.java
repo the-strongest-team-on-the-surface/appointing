@@ -2,12 +2,12 @@ package entiy;
 
 public class Baber {
 	
-	private long baberId;
+	private int baberId;
 	private String name;
 	private String telNum;
 	private boolean sex;
 	private boolean isWorking;
-	private long storeId;
+	private int storeId;
 	private String password;
 	private String defaultWorkingTimePeriod;
 	private String actualWorkingTimePeriod;
@@ -16,7 +16,7 @@ public class Baber {
 		
 	}
 
-	public Baber(long baberId, String name, String telNum, boolean sex, boolean isWorking, long storeId,
+	public Baber(int baberId, String name, String telNum, boolean sex, boolean isWorking, int storeId,
 			String password, String defaultWorkingTimePeriod, String actualWorkingTimePeriod) {
 		super();
 		this.baberId = baberId;
@@ -30,11 +30,11 @@ public class Baber {
 		this.actualWorkingTimePeriod = actualWorkingTimePeriod;
 	}
 
-	public long getBaberId() {
+	public int getBaberId() {
 		return baberId;
 	}
 
-	public void setBaberId(long baberId) {
+	public void setBaberId(int baberId) {
 		this.baberId = baberId;
 	}
 
@@ -70,11 +70,11 @@ public class Baber {
 		this.isWorking = isWorking;
 	}
 
-	public long getStoreId() {
+	public int getStoreId() {
 		return storeId;
 	}
 
-	public void setStoreId(long storeId) {
+	public void setStoreId(int storeId) {
 		this.storeId = storeId;
 	}
 

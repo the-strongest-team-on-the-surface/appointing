@@ -2,9 +2,9 @@ package entiy;
 
 public class Store {
 	 
-	private long storeId;
+	private int storeId;
 	private String name;
-	private long addressId;
+	private int addressId;
 	private String telNum;
 	private String password;
 	private String detailedAddress;
@@ -13,7 +13,7 @@ public class Store {
 		
 	}
 
-	public Store(long storeId, String name, long addressId, String telNum, String password, String detailedAddress) {
+	public Store(int storeId, String name, int addressId, String telNum, String password, String detailedAddress) {
 		super();
 		this.storeId = storeId;
 		this.name = name;
@@ -23,11 +23,11 @@ public class Store {
 		this.detailedAddress = detailedAddress;
 	}
 
-	public long getStoreId() {
+	public int getStoreId() {
 		return storeId;
 	}
 
-	public void setStoreId(long storeId) {
+	public void setStoreId(int storeId) {
 		this.storeId = storeId;
 	}
 
@@ -39,11 +39,11 @@ public class Store {
 		this.name = name;
 	}
 
-	public long getAddressId() {
+	public int getAddressId() {
 		return addressId;
 	}
 
-	public void setAddressId(long addressId) {
+	public void setAddressId(int addressId) {
 		this.addressId = addressId;
 	}
 

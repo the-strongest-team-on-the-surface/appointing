@@ -2,59 +2,49 @@ package entiy;
 
 public class Address {
 	
-	private String province;
-	private String city;
-	private String district;
-	private long addressId;
+	private String code;
+	private String parentId;
+	private String name;
+	private int level;
+	private int id;
 	
 	public Address() {
 		
 	}
-	
-	public Address(String province, String city, String district, long addressId) {
+
+	public Address(String code, String parentId, String name, int level, int id) {
 		super();
-		this.province = province;
-		this.city = city;
-		this.district = district;
-		this.addressId = addressId;
+		this.code = code;
+		this.parentId = parentId;
+		this.name = name;
+		this.level = level;
+		this.id = id;
 	}
 
-	public String getProvince() {
-		return province;
+	public String getCode() {
+		return code;
 	}
 
-	public void setProvince(String province) {
-		this.province = province;
+	public String getParentId() {
+		return parentId;
 	}
 
-	public String getCity() {
-		return city;
+	public String getName() {
+		return name;
 	}
 
-	public void setCity(String city) {
-		this.city = city;
+	public int getLevel() {
+		return level;
 	}
 
-	public String getDistrict() {
-		return district;
-	}
-
-	public void setDistrict(String district) {
-		this.district = district;
-	}
-
-	public long getAddressId() {
-		return addressId;
-	}
-
-	public void setAddressId(long addressId) {
-		this.addressId = addressId;
+	public int getId() {
+		return id;
 	}
 
 	@Override
 	public String toString() {
-		return "address [province=" + province + ", city=" + city + ", district=" + district + ", addressId="
-				+ addressId + "]";
+		return "Address [code=" + code + ", parentId=" + parentId + ", name=" + name + ", level=" + level + ", id=" + id
+				+ "]";
 	}
 	
 	

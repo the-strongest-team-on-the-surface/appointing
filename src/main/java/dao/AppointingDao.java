@@ -7,10 +7,10 @@ import org.apache.ibatis.annotations.Param;
 
 public interface AppointingDao {
 
-	Appointing quaryAppointingInfo(@Param("appointingId") long appointingId);
-	int insertAppointingInfo(@Param("appointingId") long appointingId);
-	int changeAppointingInfo(@Param("appointingId") long appointingId);
-	List<Appointing> quaryConsumerAppointing(@Param("consumerId") long consumerId);
-	List<Appointing> quaryBaberAppointing(@Param("baberId") long baberId);
+	Appointing quaryAppointingInfo(@Param("appointingId") int appointingId);
+	int insertAppointingInfo(@Param("appointingId") int appointingId);
+	int changeAppointingInfo(@Param("appointingId") int appointingId);
+	List<Appointing> quaryConsumerAppointing(@Param("consumerId") int consumerId);
+	List<Appointing> quaryBaberAppointing(@Param("baberId") int baberId);
 	
 }

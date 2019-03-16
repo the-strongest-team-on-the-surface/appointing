@@ -8,9 +8,9 @@ import entiy.Service;
 
 public interface ServiceDao {
 
-	Service quaryServiceInfo(@Param("baberId") long baberId);
-	int insertServiceInfo(@Param("serviceId") long serviceId);
-	int changeServiceInfo(@Param("serviceId") long serviceId);
-	List<ServiceDao> quaryStoreService(@Param("baberId") long baberId);
+	Service quaryServiceInfo(@Param("baberId") int baberId);
+	int insertServiceInfo(@Param("serviceId") int serviceId);
+	int changeServiceInfo(@Param("serviceId") int serviceId);
+	List<ServiceDao> quaryStoreService(@Param("baberId") int baberId);
 	
 }
