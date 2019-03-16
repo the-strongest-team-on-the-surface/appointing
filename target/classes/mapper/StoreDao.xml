@@ -23,24 +23,24 @@
 			store_id = #{storeId}
 	</select>
 	
-	<select id="quaryAllStore" parameterType="int" resultType="entiy.Store" >
+	<select id="quaryAllStore" parameterType="code" resultType="entiy.Store" >
 		<!-- 具体的sql -->
 		SELECT
 			*
 		FROM
 			store
 		WHERE
-			id = #{id}
+			code = #{code}
 	</select>
 	
 	<insert id="insertStoreInfo">
 		<!-- ignore 主键冲突，报错 -->
-		INSERT ignore INTO store (store_id, name, id, tel_num, password, detailed_address)
-		VALUES (null, #{name}, #{id}, #{telNum}, #{password}, #{detailedAddress})
+		INSERT ignore INTO store (store_id, name, code, tel_num, password, detailed_address)
+		VALUES (null, #{name}, #{code}, #{telNum}, #{password}, #{detailedAddress})
 	</insert>
 	
 	<update id='changeStoreInfo'>
-		UPDATE store SET name = #{name}, id = #{id}, tel_num = #{telNum}, password = #{password}, detailed_address = #{detailedAddress}
+		UPDATE store SET name = #{name}, code = #{code}, tel_num = #{telNum}, password = #{password}, detailed_address = #{detailedAddress}
 		WHERE store_id = #{storeId}
 	</update>
 
