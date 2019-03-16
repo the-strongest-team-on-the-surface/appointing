@@ -1,19 +1,21 @@
 package entiy;
 
+import java.util.Date;
+
 public class Appointing {
 	
 	private int consumerId;
 	private int baberId;
 	private int appointingId;
 	private int serviceId;
-	private String appointedTime;
+	private Date appointedTime;
 	private String status;
 	
 	public Appointing() {
 		
 	}
 
-	public Appointing(int consumerId, int baberId, int appointingId, int serviceId, String appointedTime,
+	public Appointing(int consumerId, int baberId, int appointingId, int serviceId, Date appointedTime,
 			String status) {
 		super();
 		this.consumerId = consumerId;
@@ -56,11 +58,11 @@ public class Appointing {
 		this.serviceId = serviceId;
 	}
 
-	public String getAppointedTime() {
+	public Date getAppointedTime() {
 		return appointedTime;
 	}
 
-	public void setAppointedTime(String appointedTime) {
+	public void setAppointedTime(Date appointedTime) {
 		this.appointedTime = appointedTime;
 	}
 

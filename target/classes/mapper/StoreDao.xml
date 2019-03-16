@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.StoreDao">
+	<select id="quaryStorePassword" parameterType="String" resultType="String" >
+		<!-- 具体的sql -->
+		SELECT
+			password
+		FROM
+			store
+		WHERE
+			tel_num = #{telNum}
+	</select>
+
+	<select id="quaryStoreInfo" parameterType="int" resultType="entiy.Store" >
+		<!-- 具体的sql -->
+		SELECT
+			*
+		FROM
+			store
+		WHERE
+			store_id = #{storeId}
+	</select>
+	
+	<select id="quaryAllStore" parameterType="int" resultType="entiy.Store" >
+		<!-- 具体的sql -->
+		SELECT
+			*
+		FROM
+			store
+		WHERE
+			id = #{id}
+	</select>
+	
+	<insert id="insertStoreInfo">
+		<!-- ignore 主键冲突，报错 -->
+		INSERT ignore INTO store (store_id, name, id, tel_num, password, detailed_address)
+		VALUES (null, #{name}, #{id}, #{telNum}, #{password}, #{detailedAddress})
+	</insert>
+	
+	<update id='changeStoreInfo'>
+		UPDATE store SET name = #{name}, id = #{id}, tel_num = #{telNum}, password = #{password}, detailed_address = #{detailedAddress}
+		WHERE store_id = #{storeId}
+	</update>
+
+</mapper>

@@ -6,10 +6,10 @@ import org.apache.ibatis.annotations.Param;
 
 public interface StoreDao {
 
-	Store quaryStorePassword(@Param("telNum") String telNum, @Param("password") String password);
-	Store quaryStoreInfo(@Param("storeId") int storeId);
-	int insertStoreInfo(@Param("storeId") int storeId);
-	int changeStoreInfo(@Param("storeId") int storeId);
-	List<Store> quaryStoreStore(@Param("addressId") int addressId);
+	String quaryStorePassword(String telNum);
+	Store quaryStoreInfo(int storeId);
+	int insertStoreInfo(@Param("storeId")int storeId, @Param("name")String name, @Param("id")int id, @Param("telNum")String telNum, @Param("password")String password, @Param("detailedAddress")String detailedAddress);
+	int changeStoreInfo(@Param("storeId")int storeId, @Param("name")String name, @Param("id")int id, @Param("telNum")String telNum, @Param("password")String password, @Param("detailedAddress")String detailedAddress);
+	List<Store> quaryAllStore(int id);
 	
 }

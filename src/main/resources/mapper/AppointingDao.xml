@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.AppointingDao">
+
+	<select id="quaryAppointingInfo" parameterType="int" resultType="entiy.Appointing" >
+		<!-- 具体的sql -->
+		SELECT
+			*
+		FROM
+			appointing
+		WHERE
+			appointing_id = #{appointingId}
+	</select>
+	
+	<select id="quaryConsumerStore" parameterType="int" resultType="entiy.Appointing" >
+		<!-- 具体的sql -->
+		SELECT
+			*
+		FROM
+			appointing
+		WHERE
+			consumer_id = #{consumerId}
+	</select>
+	
+	<select id="quaryBaberStore" parameterType="int" resultType="entiy.Appointing" >
+		<!-- 具体的sql -->
+		SELECT
+			*
+		FROM
+			appointing
+		WHERE
+			baber_id = #{baberId}
+	</select>
+	
+	<insert id="insertAppointingInfo">
+		<!-- ignore 主键冲突，报错 -->
+		INSERT ignore INTO appointing (appointing_id, baber_id, consumer_id, service_id, appointed_time, status)
+		VALUES (null, baber_id = #{baberId}, consumer_id = #{consumerId}, service_id = #{serviceId}, appointed_time = #{appointedTime}, status = #{status})
+	</insert>
+	
+	<update id='changeAppointingInfo'>
+		UPDATE appointing SET status = #{status}
+		WHERE appointing_id = #{appointingId}
+	</update>
+
+</mapper>
