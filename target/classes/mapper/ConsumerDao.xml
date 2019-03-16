@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.ConsumerDao">
+	<select id="quaryConsumerPassword" parameterType="String" resultType="String" >
+		<!-- 具体的sql -->
+		SELECT
+			*
+		FROM
+			consumer
+		WHERE
+			tel_num = #{telNum}
+	</select>
+
+	<select id="quaryConsumerInfo" parameterType="int" resultType="entiy.Consumer" >
+		<!-- 具体的sql -->
+		SELECT
+			*
+		FROM
+			consumer
+		WHERE
+			consumer_id = #{consumerId}
+	</select>
+	
+	<insert id="insertConsumerInfo">
+		<!-- ignore 主键冲突，报错 -->
+		INSERT ignore INTO consumer (consumer_id, name, tel_num, sex, password)
+		VALUES (null, #{name}, #{telNum}, #{sex}, #{password})
+	</insert>
+	
+	<update id='changeConsumerInfo'>
+		UPDATE consumer SET name = #{name}, tel_num = #{telNum}, password = #{password}, sex = #{sex}
+		WHERE consumer_id = #{consumerId}
+	</update>
+
+</mapper>

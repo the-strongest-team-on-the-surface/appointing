@@ -17,7 +17,7 @@ CREATE TABLE 'appointing' (
 CREATE TABLE 'consumer' (
 	'consumer_id' int(11) NOT NULL AUTO_INCREMENT COMMENT '顾客ID',
 	'name' varchar(100) NOT NULL COMMENT '顾客名称',
-	'telnum' varchar(100) NOT NULL COMMENT'电话',
+	'tel_num' varchar(100) NOT NULL COMMENT'电话',
 	'sex' boolen NOT NULL COMMENT'性别',
 	'password' varchar(100) NOT NULL COMMENT'密码',
 	PRIMARY KEY ('consumer_id'),
@@ -27,7 +27,7 @@ CREATE TABLE 'consumer' (
 CREATE TABLE 'baber' (
 	'baber_id' int(11) NOT NULL AUTO_INCREMENT COMMENT '理发师ID',
 	'name' varchar(100) NOT NULL COMMENT '理发师名称',
-	'telnum' varchar(100) NOT NULL COMMENT'电话',
+	'tel_num' varchar(100) NOT NULL COMMENT'电话',
 	'sex' boolen NOT NULL COMMENT'性别',
 	'is_working' boolen NOT NULL COMMENT'是否正在工作',
 	'store_id' int(11) NOT NULL COMMENT '店家ID',
@@ -43,7 +43,7 @@ CREATE TABLE 'store' (
 	'store_id' int(11) NOT NULL AUTO_INCREMENT COMMENT '店家ID',
 	'name' varchar(100) NOT NULL COMMENT '店家名称',
 	'id' int(11) NOT NULL COMMENT '地址ID',
-	'telnum' varchar(100) NOT NULL COMMENT'电话',
+	'tel_num' varchar(100) NOT NULL COMMENT'电话',
 	'password' varchar(100) NOT NULL COMMENT'密码',
 	'detailed_address' varchar(100) NOT NULL COMMENT'详细地址',
 	PRIMARY KEY ('store_id'),
