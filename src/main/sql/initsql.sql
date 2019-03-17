@@ -1,62 +1,61 @@
+-- åˆ›å»ºé¡¾å®¢è¡¨
+CREATE TABLE `consumer` (
+	`consumer_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'é¡¾å®¢ID',
+	`name` varchar(100) NOT NULL COMMENT 'é¡¾å®¢åç§°',
+	`tel_num` varchar(100) NOT NULL COMMENT'ç”µè¯',
+	`sex` boolean NOT NULL COMMENT'æ€§åˆ«',
+	`password` varchar(100) NOT NULL COMMENT'å¯†ç ',
+	PRIMARY KEY (`consumer_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='é¡¾å®¢è¡¨';
 
---´´½¨Ô¤Ô¼±í
-CREATE TABLE 'appointing' (
-	'appointing_id' int(11) NOT NULL AUTO_INCREMENT COMMENT 'Ô¤Ô¼ID',
-	'baber_id' int(11) NOT NULL COMMENT 'Àí·¢Ê¦ID',
-	'consumer_id' int(11) NOT NULL COMMENT '¹Ë¿ÍID',
-	'service_id' int(11) NOT NULL COMMENT '·şÎñID',
-	'appointed_time' varchar(100) NOT NULL COMMENT 'Ô¤Ô¼Ê±¼ä',
-	'status' varchar(100) NOT NULL COMMENT 'Ô¤Ô¼×´Ì¬',
-	PRIMARY KEY ('appointing_id'),
-	FOREIGN KEY ('baber_id') REFERENCES baber('baber_id'),
-	FOREIGN KEY ('consumer_id') REFERENCES consumer('consumer_id'),
-	FOREIGN KEY ('service_id') REFERENCES service('service_id')
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='Ô¤Ô¼±í';
+-- åˆ›å»ºåº—å®¶è¡¨
+CREATE TABLE `store` (
+	`store_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'åº—å®¶ID',
+	`name` varchar(100) NOT NULL COMMENT 'åº—å®¶åç§°',
+	`id` int(11) NOT NULL COMMENT 'åœ°å€ID',
+	`tel_num` varchar(100) NOT NULL COMMENT'ç”µè¯',
+	`password` varchar(100) NOT NULL COMMENT'å¯†ç ',
+	`detailed_address` varchar(100) NOT NULL COMMENT'è¯¦ç»†åœ°å€',
+	PRIMARY KEY (`store_id`),
+	FOREIGN KEY (`id`) REFERENCES Address(`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='åº—å®¶è¡¨';
 
---´´½¨¹Ë¿Í±í
-CREATE TABLE 'consumer' (
-	'consumer_id' int(11) NOT NULL AUTO_INCREMENT COMMENT '¹Ë¿ÍID',
-	'name' varchar(100) NOT NULL COMMENT '¹Ë¿ÍÃû³Æ',
-	'tel_num' varchar(100) NOT NULL COMMENT'µç»°',
-	'sex' boolen NOT NULL COMMENT'ĞÔ±ğ',
-	'password' varchar(100) NOT NULL COMMENT'ÃÜÂë',
-	PRIMARY KEY ('consumer_id'),
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='¹Ë¿Í±í';
+-- åˆ›å»ºç†å‘å¸ˆè¡¨
+CREATE TABLE `baber` (
+	`baber_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ç†å‘å¸ˆID',
+	`name` varchar(100) NOT NULL COMMENT 'ç†å‘å¸ˆåç§°',
+	`tel_num` varchar(100) NOT NULL COMMENT'ç”µè¯',
+	`sex` boolean NOT NULL COMMENT'æ€§åˆ«',
+	`is_working` boolean NOT NULL COMMENT'æ˜¯å¦æ­£åœ¨å·¥ä½œ',
+	`store_id` int(11) NOT NULL COMMENT 'åº—å®¶ID',
+	`password` varchar(100) NOT NULL COMMENT'å¯†ç ',
+	`default-working-time-period` varchar(100) NOT NULL COMMENT'é»˜è®¤å·¥ä½œæ—¶é—´æ®µ',
+	`actual-working-time-period` varchar(100) NOT NULL COMMENT'å®é™…å·¥ä½œæ—¶é—´æ®µ',
+	PRIMARY KEY (`baber_id`),
+	FOREIGN KEY (`store_id`) REFERENCES store(`store_id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='ç†å‘å¸ˆè¡¨';
 
---´´½¨Àí·¢Ê¦±í
-CREATE TABLE 'baber' (
-	'baber_id' int(11) NOT NULL AUTO_INCREMENT COMMENT 'Àí·¢Ê¦ID',
-	'name' varchar(100) NOT NULL COMMENT 'Àí·¢Ê¦Ãû³Æ',
-	'tel_num' varchar(100) NOT NULL COMMENT'µç»°',
-	'sex' boolen NOT NULL COMMENT'ĞÔ±ğ',
-	'is_working' boolen NOT NULL COMMENT'ÊÇ·ñÕıÔÚ¹¤×÷',
-	'store_id' int(11) NOT NULL COMMENT 'µê¼ÒID',
-	'password' varchar(100) NOT NULL COMMENT'ÃÜÂë',
-	'default-working-time-period' varchar(100) NOT NULL COMMENT'Ä¬ÈÏ¹¤×÷Ê±¼ä¶Î',
-	'actual-working-time-period' varchar(100) NOT NULL COMMENT'Êµ¼Ê¹¤×÷Ê±¼ä¶Î',
-	PRIMARY KEY ('baber_id'),
-	FOREIGN KEY ('store_id') REFERENCES store('store_id') ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='Àí·¢Ê¦±í';
+-- åˆ›å»ºæœåŠ¡è¡¨
+CREATE TABLE `service` (
+	`service_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'æœåŠ¡ID',
+	`name` varchar(100) NOT NULL COMMENT 'æœåŠ¡åç§°',
+	`price` int(11) NOT NULL COMMENT 'æœåŠ¡ä»·æ ¼',
+	`duration` int(11) NOT NULL COMMENT 'æœåŠ¡æ—¶é•¿',
+	`baber_id` int(11) NOT NULL COMMENT 'ç†å‘å¸ˆID',
+	PRIMARY KEY (`service_id`),
+	FOREIGN KEY (`baber_id`) REFERENCES baber(`baber_id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='æœåŠ¡è¡¨';
 
---´´½¨µê¼Ò±í
-CREATE TABLE 'store' (
-	'store_id' int(11) NOT NULL AUTO_INCREMENT COMMENT 'µê¼ÒID',
-	'name' varchar(100) NOT NULL COMMENT 'µê¼ÒÃû³Æ',
-	'id' int(11) NOT NULL COMMENT 'µØÖ·ID',
-	'tel_num' varchar(100) NOT NULL COMMENT'µç»°',
-	'password' varchar(100) NOT NULL COMMENT'ÃÜÂë',
-	'detailed_address' varchar(100) NOT NULL COMMENT'ÏêÏ¸µØÖ·',
-	PRIMARY KEY ('store_id'),
-	FOREIGN KEY ('id') REFERENCES t_prov_city_area_street('id')
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='µê¼Ò±í';
-
---´´½¨·şÎñ±í
-CREATE TABLE 'service' (
-	'service_id' int(11) NOT NULL AUTO_INCREMENT COMMENT '·şÎñID',
-	'name' varchar(100) NOT NULL COMMENT '·şÎñÃû³Æ',
-	'price' int(11) NOT NULL COMMENT '·şÎñ¼Û¸ñ',
-	'duration' int(11) NOT NULL COMMENT '·şÎñÊ±³¤',
-	'baber_id' int(11) NOT NULL COMMENT 'Àí·¢Ê¦ID',
-	PRIMARY KEY ('service_id'),
-	FOREIGN KEY ('baber_id') REFERENCES baber('baber_id') ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='·şÎñ±í';
+-- åˆ›å»ºé¢„çº¦è¡¨
+CREATE TABLE `appointing` (
+	`appointing_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'é¢„çº¦ID',
+	`baber_id` int(11) NOT NULL COMMENT 'ç†å‘å¸ˆID',
+	`consumer_id` int(11) NOT NULL COMMENT 'é¡¾å®¢ID',
+	`service_id` int(11) NOT NULL COMMENT 'æœåŠ¡ID',
+	`appointed_time` varchar(100) NOT NULL COMMENT 'é¢„çº¦æ—¶é—´',
+	`status` varchar(100) NOT NULL COMMENT 'é¢„çº¦çŠ¶æ€',
+	PRIMARY KEY (`appointing_id`),
+	FOREIGN KEY (`baber_id`) REFERENCES baber(`baber_id`),
+	FOREIGN KEY (`consumer_id`) REFERENCES consumer(`consumer_id`),
+	FOREIGN KEY (`service_id`) REFERENCES service(`service_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='é¢„çº¦è¡¨';

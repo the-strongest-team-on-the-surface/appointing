@@ -10,6 +10,6 @@ public interface ServiceDao {
 
 	int insertServiceInfo(@Param("serviceId") int serviceId);
 	int changeServiceInfo(@Param("serviceId") int serviceId,@Param("name") String name,@Param("duration") int duration,@Param("baberId") int baberId);
-	List<ServiceDao> quaryServiceInfo(@Param("baberId") int baberId);
+	List<Service> quaryServiceInfo(@Param("baberId") int baberId);
 	
 }

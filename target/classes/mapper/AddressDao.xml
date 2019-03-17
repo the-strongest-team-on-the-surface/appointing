@@ -4,19 +4,19 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.AddressDao">
 
-	<select id="quaryNextLevel" parameterType="code" resultType="entiy.Address">
+	<select id="quaryNextLevel" parameterType="String" resultType="entiy.Address">
 		SELECT 
 			id,
 			name
-		FROM ADRESS
+		FROM ADDRESS
 		WHERE
 			parent_id = #{code}
 	</select>
 	
-	<select id="quaryName" parameterType="code" resultType="String">
+	<select id="quaryName" parameterType="String" resultType="String">
 		SELECT 
 			name
-		FROM ADRESS
+		FROM ADDRESS
 		WHERE
 			code = #{code}
 	</select>

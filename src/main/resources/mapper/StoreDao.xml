@@ -23,7 +23,7 @@
 			store_id = #{storeId}
 	</select>
 	
-	<select id="quaryAllStore" parameterType="code" resultType="entiy.Store" >
+	<select id="quaryAllStore" parameterType="String" resultType="entiy.Store" >
 		<!-- 具体的sql -->
 		SELECT
 			*

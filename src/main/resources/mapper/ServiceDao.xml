@@ -4,7 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.ServiceDao">
 
-	<select id="quaryServiceInfo" parameterType="int" resultType="appointing.entiy.Service" >
+	<select id="quaryServiceInfo" parameterType="int" resultType="entiy.Service" >
 		<!-- 具体的sql -->
 		SELECT
 			service_id,
