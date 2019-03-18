@@ -14,5 +14,7 @@ public interface AppointingDao {
 	int changeAppointingInfo(@Param("appointingId") int appointingId, @Param("status") String status);
 	List<Appointing> quaryConsumerAppointing(int consumerId);
 	List<Appointing> quaryBaberAppointing(int baberId);
+	List<Appointing> quaryConsumerAppointingByStatue(@Param("consumerId") int consumerId, @Param("status") String status);
+	List<Appointing> quaryBaberAppointingByStatue(@Param("baberId") int baberId, @Param("status") String status);
 	
 }
