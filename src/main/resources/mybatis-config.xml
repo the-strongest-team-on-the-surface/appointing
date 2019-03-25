@@ -15,8 +15,8 @@
 		<setting name="mapUnderscoreToCamelCase" value="true" />
 	</settings>
 	<plugins>
-    <!-- com.github.pagehelper为PageHelper类所在包名 -->
-    <plugin interceptor="com.github.pagehelper.PageInterceptor">
-	</plugin>
+		<!-- com.github.pagehelper为PageHelper类所在包名 -->
+		<plugin interceptor="com.github.pagehelper.PageInterceptor">
+		</plugin>
 	</plugins>
 </configuration>

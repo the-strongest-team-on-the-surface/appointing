@@ -6,7 +6,7 @@
 	<select id="quaryConsumerPassword" parameterType="String" resultType="String" >
 		<!-- 具体的sql -->
 		SELECT
-			*
+			password
 		FROM
 			consumer
 		WHERE

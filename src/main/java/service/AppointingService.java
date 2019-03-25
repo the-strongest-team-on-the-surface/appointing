@@ -59,10 +59,10 @@ public interface AppointingService {
 	List<Baber> quaryStoreBaber( int storeId);
 	
 	//customer
-	Consumer quaryConsumerPassword(String telNum);
+	String quaryConsumerPassword(String telNum);
 	Consumer quaryConsumerInfo(int consumerId);
-	int insertConsumerInfo(int storeId, String name, String telNum, String password, boolean sex);
-	int changeConsumerInfo(int storeId, String name, String telNum, String password, boolean sex);
+	int insertConsumerInfo(int consumerId, String name, String telNum, String password, boolean sex);
+	int changeConsumerInfo(int consumerId, String name, String telNum, String password, boolean sex);
 	
 	//service
 	int insertServiceInfo(int serviceId, String name, int duration, int baberId);

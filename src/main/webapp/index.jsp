@@ -1,2 +1,19 @@
-<%@page contentType="text/html; charset=UTF-8" language="java" %>
-<jsp:forward page="tlist"></jsp:forward>
+<!-- 
+function testAjax() {
+
+            $.ajax({
+                type: 'POST',
+                data: '111',
+                contentType: 'application/json',
+                dataType: 'json',
+                url: 'wtf/pwdtest.do',
+                async: false,
+                success: function (data) {
+                    alert(data);
+                },
+                error: function (e) {
+                    alert("error");
+                }
+            })
+        }
+ -->

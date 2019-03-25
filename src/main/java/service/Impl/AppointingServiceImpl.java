@@ -111,7 +111,7 @@ public class AppointingServiceImpl implements AppointingService {
 		// TODO 自动生成的方法存根
 		return baberDao.quaryStoreBaber(storeId);
 	}
-	public Consumer quaryConsumerPassword(String telNum) {
+	public String quaryConsumerPassword(String telNum) {
 		// TODO 自动生成的方法存根
 		return consumerDao.quaryConsumerPassword(telNum);
 	}
@@ -119,13 +119,13 @@ public class AppointingServiceImpl implements AppointingService {
 		// TODO 自动生成的方法存根
 		return consumerDao.quaryConsumerInfo(consumerId);
 	}
-	public int insertConsumerInfo(int storeId, String name, String telNum, String password, boolean sex) {
+	public int insertConsumerInfo(int consumerId, String name, String telNum, String password, boolean sex) {
 		// TODO 自动生成的方法存根
-		return consumerDao.insertConsumerInfo(storeId, name, telNum, password, sex);
+		return consumerDao.insertConsumerInfo(consumerId, name, telNum, password, sex);
 	}
-	public int changeConsumerInfo(int storeId, String name, String telNum, String password, boolean sex) {
+	public int changeConsumerInfo(int consumerId, String name, String telNum, String password, boolean sex) {
 		// TODO 自动生成的方法存根
-		return consumerDao.changeConsumerInfo(storeId, name, telNum, password, sex);
+		return consumerDao.changeConsumerInfo(consumerId, name, telNum, password, sex);
 	}
 	public int insertServiceInfo(int serviceId, String name, int duration, int baberId) {
 		// TODO 自动生成的方法存根

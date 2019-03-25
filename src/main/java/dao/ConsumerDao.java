@@ -5,9 +5,9 @@ import entiy.Consumer;
 
 public interface ConsumerDao {
 
-	Consumer quaryConsumerPassword(String telNum);
+	String quaryConsumerPassword(String telNum);
 	Consumer quaryConsumerInfo(int consumerId);
-	int insertConsumerInfo(@Param("consumerId")int storeId, @Param("name")String name, @Param("telNum")String telNum, @Param("password")String password, @Param("sex")boolean sex);
-	int changeConsumerInfo(@Param("consumerId")int storeId, @Param("name")String name, @Param("telNum")String telNum, @Param("password")String password, @Param("sex")boolean sex);
+	int insertConsumerInfo(@Param("consumerId")int consumerId, @Param("name")String name, @Param("telNum")String telNum, @Param("password")String password, @Param("sex")boolean sex);
+	int changeConsumerInfo(@Param("consumerId")int consumerId, @Param("name")String name, @Param("telNum")String telNum, @Param("password")String password, @Param("sex")boolean sex);
 	
 }
