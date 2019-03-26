@@ -12,12 +12,11 @@ CREATE TABLE `consumer` (
 CREATE TABLE `store` (
 	`store_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '店家ID',
 	`name` varchar(100) NOT NULL COMMENT '店家名称',
-	`id` int(11) NOT NULL COMMENT '地址ID',
+	`code` int(11) NOT NULL COMMENT '地址ID',
 	`tel_num` varchar(100) NOT NULL COMMENT'电话',
 	`password` varchar(100) NOT NULL COMMENT'密码',
 	`detailed_address` varchar(100) NOT NULL COMMENT'详细地址',
-	PRIMARY KEY (`store_id`),
-	FOREIGN KEY (`id`) REFERENCES Address(`id`)
+	PRIMARY KEY (`store_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='店家表';
 
 -- 创建理发师表

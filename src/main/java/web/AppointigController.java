@@ -27,7 +27,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
+import entiy.Address;
 import entiy.Consumer;
+import entiy.Store;
 import service.Impl.AppointingServiceImpl;
 
 @Controller
@@ -39,17 +41,24 @@ public class AppointigController {
 	@Autowired
 	private AppointingServiceImpl appointingServiceImpl;
 
-	@RequestMapping("/tlist")
-	public String List(@RequestParam(value = "pn", defaultValue = "1") Integer pn, Model model) {
+	@RequestMapping(method = RequestMethod.GET, value = "/addr")
+	@ResponseBody
+	public List<Address> addr(@RequestParam(value = "code", defaultValue = "0") String code) {
+		List<Address> tlist = appointingServiceImpl.quaryNextLevel(code);
+
+		return tlist;
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/tlist")
+	@ResponseBody
+	public PageInfo List(@RequestParam(value = "pn", defaultValue = "1") Integer pn) {
 		List<Consumer> tlist = new ArrayList<Consumer>();
-		tlist.add(new Consumer(11, "mike", "13900000000", true, "qqq"));
-
+		int a = 1;
+		tlist.add(appointingServiceImpl.quaryConsumerInfo(a));
 		PageHelper.startPage(pn, 5);
-		PageInfo page = new PageInfo(tlist, 5);
+		PageInfo pageinfo = new PageInfo(tlist, 5);
 
-		model.addAttribute("pageinfo", page);
-
-		return "list";
+		return pageinfo;
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/consignup", produces = { "application/json; charset=utf-8" })
@@ -58,7 +67,17 @@ public class AppointigController {
 
 		int result = appointingServiceImpl.insertConsumerInfo(tel.getConsumerId(), tel.getName(), tel.getTelNum(),
 				tel.getPassword(), tel.isSex());
-		System.out.println(result + "   232323232322222222222222222233");
+		return result;
+
+	}
+
+	@RequestMapping(method = RequestMethod.POST, value = "/stosignup", produces = { "application/json; charset=utf-8" })
+	@ResponseBody
+	public int stosignup(@RequestBody Store tel) {
+
+		System.out.println(tel.getcode()+"aaaaa22222222222222222222222222");
+		int result = appointingServiceImpl.insertStoreInfo(tel.getStoreId(), tel.getName(), tel.getcode(),
+				tel.getTelNum(), tel.getPassword(), tel.getDetailedAddress());
 		return result;
 
 	}

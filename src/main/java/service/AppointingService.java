@@ -3,8 +3,6 @@ package service;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-
 import entiy.Address;
 import entiy.Appointing;
 import entiy.Baber;

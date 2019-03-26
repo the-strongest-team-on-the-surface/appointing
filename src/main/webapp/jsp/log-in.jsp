@@ -4,16 +4,21 @@
     <title>登录</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css">
-    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js"></script>
-    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+    
     <script>
         function login() {
 
 
             var tel = $('#telNum').val();
             var pwd = $('#password').val();
+            
+            if(tel==""||pwd==""){alert("请填写手机号与密码!");return false;}
+            
             var param={};
             param.telNum=tel;
             param.password=pwd;
@@ -22,7 +27,7 @@
                 data: JSON.stringify(param),
                 contentType: 'application/json',
                 dataType: 'json',
-                url: 'wtf/pwdverify',
+                url: '${pageContext.request.contextPath}/wtf/pwdverify',
                 async: false,
                 success: function (data) {
                     if(data==1)
@@ -73,7 +78,7 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-4 offset-sm-3">
-                            <button id="sign-up" onClick="window.open('sign-up.html')" type="button"
+                            <button id="sign-up" onClick="window.open('${pageContext.request.contextPath}/jsp/sign-up.jsp')" type="button"
                                 class="btn btn-primary btn-lg btn-block">注册</button>
                         </div>
                         <div class="col-sm-4 offset-sm-1">

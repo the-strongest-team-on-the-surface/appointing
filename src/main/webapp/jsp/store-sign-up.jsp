@@ -1,8 +1,9 @@
-<%@page contentType="text/html; charset=UTF-8" language="java"%>
+<%@page contentType="text/html; charset=UTF-8" language="java" %>
+<html>
 
 <head>
-
-    <title>注册</title>
+    <title>Insert title here</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
@@ -10,13 +11,43 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
 
     <script>
-        function fnSignup() {
+        $(function () {
+            var code = "0";
+            $.get("${pageContext.request.contextPath}/wtf/addr?code=" + code, function (addr) {
+                selectChange(addr);
+            });
+        });
+        function selectChange(addr) {
+            var ee = 1;
+            $("<option></option>").appendTo('#addr' + ee);
+            $.each(addr, function (index, item) {
+                $("<option value='" + item.code + "'>" + item.name + "</option>").appendTo('#addr' + ee);
+            });
 
+        }
+        function eChange(ee, code) {
+            $.get("${pageContext.request.contextPath}/wtf/addr?code=" + code, function (addr) {
+
+                for (var i = ee; i < 5; i++) {
+                    $("#addr" + i).empty();
+                }
+
+                $("<option value=''></option>").appendTo('#addr' + ee);
+
+                $.each(addr, function (index, item) {
+                    $("<option value='" + item.code + "'>" + item.name + "</option>").appendTo('#addr' + ee);
+                });
+
+            });
+
+        }
+        function onsm() {
             var name = $('#name').val();
             var password1 = $('#password1').val();
             var telnum = $('#telnum').val();
             var password2 = $('#password2').val();
-            var sex = $('#sex').val();
+            var daddr = $.trim($('#daddr').val());
+            var addr = $('#addr1').val();
 
             var retel = /^1[34578]\d{9}$/;
             if (retel.test(telnum)) {
@@ -41,23 +72,46 @@
             var rename = /^.{1,20}$/;
             if (rename.test(name)) {
             } else {
-                alert("请输入最多20位的姓名或昵称！");
+                alert("请输入最多20位的姓名！");
                 return false;
             }
 
-            var param = {};
+            if (daddr=="") {
+                alert("请输入店铺详细地址！");
+                return false;
+            }
 
-            param.telNum = telnum;
-            param.password = password1;
+            if (addr == "") {
+                alert("请选择店铺地址！");
+                return false;
+            } else if ($('#addr1').val() == "47493" || $('#addr1').val() == "47494" || $('#addr1').val() == "47495") {
+                addr = $('#addr1').val();
+            } else if ($('#addr2').val() == "") {
+                alert("请至少选择三级地址！");
+                return false;
+            } else if ($('#addr3').val() == "") {
+                alert("请至少选择三级地址！");
+                return false;
+            } else if ($('#addr4').val() == "") {
+                addr = $('#addr3').val();
+            } else {
+                addr = $('#addr4').val();
+            }
+
+            var param = {};
             param.name = name;
-            param.sex = sex;
+            param.password = password1;
+            param.code = addr;
+            param.telNum = telnum;
+            param.detailedAddress = daddr;
+
 
             $.ajax({
                 type: 'POST',
                 data: JSON.stringify(param),
                 contentType: 'application/json',
                 dataType: 'json',
-                url: '${pageContext.request.contextPath}/wtf/consignup',
+                url: '${pageContext.request.contextPath}/wtf/stosignup',
                 async: false,
                 success: function (data) {
                     if (data > 0)
@@ -72,6 +126,7 @@
 
             return false;
         }
+
     </script>
 
 </head>
@@ -83,13 +138,13 @@
         <div class="col-md-6 column">
 
             <div class="row col-md-offset-8">
-                <a href='${pageContext.request.contextPath}/jsp/baber-sign-up.jsp' role="button">商家注册，请点击跳转</a>
+                <a href='${pageContext.request.contextPath}/jsp/sign-up.jsp' role="button">跳到注册</a>
             </div>
             <div class="row col-md-offset-8">
                 <a href='${pageContext.request.contextPath}/jsp/log-in.jsp' role="button">如果已有账号，请直接登录</a>
             </div>
             <div class="clearfix" style="margin-bottom: 10px;"></div>
-            <form onsubmit="return fnSignup()">
+            <form onsubmit="return onsm()">
 
 
 
@@ -128,13 +183,24 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="sex" class="col-sm-3">性别</label>
+                    <label for="daddr" class="col-sm-3">详细地址</label>
                     <div class="col-sm-9">
-                        <select id="sex" class="form-control">
-                            <option value="true" selected>先生</option>
-                            <option value="false">女士</option>
-                        </select> <small id="sexHelp" class="form-text text-muted">
-                            请告诉我们如何称呼您 </small>
+                        <textarea class="form-control" id="daddr" rows="3" maxlength="100"></textarea>
+                        <small id="daddrHelp" class="form-text text-muted">
+                            请输入店铺的详细地址 </small>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="addr1" class="col-sm-3">地址</label>
+                    <div class="col-sm-9">
+                        <select onChange="eChange(2,$('#addr1').val())" id="addr1" class="form-control"></select>
+                        <div class="clearfix" style="margin-bottom: 10px;"></div>
+                        <select onChange="eChange(3,$('#addr2').val())" id="addr2" class="form-control"></select>
+                        <div class="clearfix" style="margin-bottom: 10px;"></div>
+                        <select onChange="eChange(4,$('#addr3').val())" id="addr3" class="form-control"></select>
+                        <div class="clearfix" style="margin-bottom: 10px;"></div>
+                        <select id="addr4" class="form-control"></select>
                     </div>
                 </div>
 
