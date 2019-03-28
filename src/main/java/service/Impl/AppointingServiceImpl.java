@@ -86,7 +86,7 @@ public class AppointingServiceImpl implements AppointingService {
 	}
 	public String quaryAddrName(String code) {
 		// TODO 自动生成的方法存根
-		return quaryAddrName(code);
+		return addressDao.quaryName(code);
 	}
 	public String quaryBaberPassword(String telNum) {
 		// TODO 自动生成的方法存根

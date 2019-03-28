@@ -50,29 +50,47 @@ public class AppointigController {
 		return tlist;
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/tlist")
-	@ResponseBody
-	public PageInfo List(@RequestParam(value = "pn", defaultValue = "1") Integer pn) {
-		List<Consumer> tlist = new ArrayList<Consumer>();
-		int a = 1;
-		tlist.add(appointingServiceImpl.quaryConsumerInfo(a));
-		PageHelper.startPage(pn, 5);
-		PageInfo pageinfo = new PageInfo(tlist, 5);
-
-		return pageinfo;
-	}
-	
 	@RequestMapping(method = RequestMethod.GET, value = "/blist")
 	@ResponseBody
 	public PageInfo baberList(@RequestParam(value = "pn", defaultValue = "1") Integer pn) {
-		
-		int a=1;
-		List<Baber>blist = new ArrayList<Baber>();
+
+		int a = 1;
+		List<Baber> blist = new ArrayList<Baber>();
 		PageHelper.startPage(pn, 6);
 		blist = appointingServiceImpl.quaryStoreBaber(a);
 		PageInfo pageinfo = new PageInfo(blist, 5);
 
 		return pageinfo;
+	}
+
+	@RequestMapping(method = RequestMethod.POST, value = "/sinfo", produces = { "application/json; charset=utf-8" })
+	@ResponseBody
+	public Store sinfo(@RequestBody Store tst) {
+
+		int storeId = tst.getStoreId();
+		Store sif = appointingServiceImpl.quaryStoreInfo(storeId);
+		String tcode = sif.getcode();
+		String tsrr = "";
+
+		if (tcode.length() == 2) {
+			tsrr = tsrr + appointingServiceImpl.quaryAddrName(tcode);
+		} else if (tcode.length() == 6) {
+			tsrr = tsrr + appointingServiceImpl.quaryAddrName(tcode.substring(0, 2))
+					+ appointingServiceImpl.quaryAddrName(tcode.substring(0, 4))
+					+ appointingServiceImpl.quaryAddrName(tcode);
+		} else if (tcode.length() == 9) {
+			tsrr = tsrr + appointingServiceImpl.quaryAddrName(tcode.substring(0, 2))
+					+ appointingServiceImpl.quaryAddrName(tcode.substring(0, 4))
+					+ appointingServiceImpl.quaryAddrName(tcode.substring(0, 6))
+					+ appointingServiceImpl.quaryAddrName(tcode);
+		} else {
+			tsrr = tsrr + "false";
+		}
+
+		sif.setcode(tsrr);
+
+		return sif;
+
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/consignup", produces = { "application/json; charset=utf-8" })

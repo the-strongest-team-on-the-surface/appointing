@@ -43,7 +43,7 @@ public class Store {
 		return code;
 	}
 
-	public void setid(String code) {
+	public void setcode(String code) {
 		this.code = code;
 	}
 

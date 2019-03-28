@@ -25,6 +25,7 @@
         $(function () {
 
             tgpl(1);
+            tsinfo(1);
 
         });
 
@@ -90,8 +91,31 @@
                 var tlin = $("<li></li>").append($("<a onclick='tgpl(" + (pn + 1) + ")' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a>")).appendTo("#home_nav");
             }
 
-            var tlil = $("<li></li>").append($("<a onclick='tgpl(" + (pageinfo.pages) + ")'></a>").text("last")).appendTo("#home_nav");
+            var tlil = $("<li></li>").append($("<a onclick='tgpl(" + pageinfo.pages + ")'></a>").text("last")).appendTo("#home_nav");
 
+        }
+
+        function tsinfo(storeId) {
+
+            var param = {};
+            param.storeId = storeId;
+            $.ajax({
+                type: 'POST',
+                data: JSON.stringify(param),
+                contentType: 'application/json',
+                dataType: 'json',
+                url: '${pageContext.request.contextPath}/wtf/sinfo',
+                async: false,
+                success: function (data) {
+                    var obj = document.getElementById("sinfoh3");
+                    obj.innerText = data.name;
+                    var obj = document.getElementById("sinfop1");
+                    obj.innerText = data.code + "\n" + data.detailedAddress;
+                },
+                error: function (e) {
+                    alert("system error");
+                }
+            })
         }
 
         function tclick(i) {
@@ -106,20 +130,26 @@
     <div class="container">
         <div class="row clearfix">
             <div class="col-md-2 column">
+
                 <div class="panel panel-info">
                     <div class="panel-heading">
                         <h3 class="panel-title">个人资料</h3>
                     </div>
                     <div class="panel-body">
-                        <img alt="140x140" src="C:\Users\Administrator\Desktop\default3.jpg" class="img-circle" />
+                        <img alt="140x140" src="" class="img-circle" />
+                        <h3 id="sinfoh3"></h3>
+                        <p id="sinfop1"></p>
+                        <button class="btn btn-danger" id="addbaber" data-toggle="modal"
+                            data-target="#myModal">添加理发师</button>
                     </div>
                 </div>
 
             </div>
+
             <div class="col-md-10 column ">
                 <div class="col-md-12 column well well-sm">
-                    <ul id="myTab" class="nav nav-tabs">
-                        <li class="active"><a href="#home" data-toggle="tab">预约</a></li>
+                    <ul id="myTab" class="nav nav-tabs nav-justified">
+                        <li class="active"><a href="#home1" data-toggle="tab">预约</a></li>
                         <li><a href="#ios" data-toggle="tab">我的预约</a></li>
                         <li><a href="#ch" data-toggle="tab">修改信息</a></li>
                     </ul>
@@ -128,6 +158,7 @@
 
                     <div class="tab-pane fade in active " id="home1">
 
+                        <div class='clearfix' style='margin-bottom: 30px;'></div>
                         <div style="position:relative;left:20px;top:0px;width:900px;height:300px" id="home"></div>
                         <div class="col-md-4" id="home4">
                             <div class='clearfix' style='margin-bottom: 30px;'></div>
@@ -137,151 +168,102 @@
 
                     </div>
 
-
-
                     <div class="tab-pane fade" id="ios">
-                        <table class="table table-hover table-striped">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        时间
-                                    </th>
-                                    <th>
-                                        店铺
-                                    </th>
-                                    <th>
-                                        理发师
-                                    </th>
-                                    <th>
-                                        项目
-                                    </th>
-                                    <th>
-                                        价格
-                                    </th>
-                                    <th>
-                                        状态
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        1
-                                    </td>
-                                    <td>
-                                        TB - Monthly
-                                    </td>
-                                    <td>
-                                        01/04/2012
-                                    </td>
-                                    <td>
-                                        Default
-                                    </td>
-                                    <td>
-                                        Default
-                                    </td>
-                                    <td>
-                                        Default
-                                    </td>
-
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div class="col-sm-offset-7">
-                            <ul class="pagination">
-                                <li>
-                                    <a href="#">Prev</a>
-                                </li>
-                                <li>
-                                    <a href="#">1</a>
-                                </li>
-                                <li>
-                                    <a href="#">2</a>
-                                </li>
-                                <li>
-                                    <a href="#">3</a>
-                                </li>
-                                <li>
-                                    <a href="#">4</a>
-                                </li>
-                                <li>
-                                    <a href="#">5</a>
-                                </li>
-                                <li>
-                                    <a href="#">Next</a>
-                                </li>
-                            </ul>
-                        </div>
                     </div>
 
                     <div class="tab-pane fade" id="ch">
-                        <div class="clearfix" style="margin-bottom: 30px;"></div>
-                        <div class="col-md-6 column col-sm-offset-3">
-                            <form class="form-horizontal" onsubmit="">
-                                <div class="col-md-12 column">
-
-                                    <div class="clearfix" style="margin-bottom: 20px;"></div>
-
-                                    <div class="form-group row">
-                                        <label for="telnum" class="col-sm-3">手机号码</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="telnum" placeholder=""> <small
-                                                id="telnumHelp" class="form-text text-muted"> 请输入11位手机号码 </small>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="password1" class="col-sm-3">密码</label>
-                                        <div class="col-sm-9">
-                                            <input type="password" class="form-control" id="password1" placeholder="">
-                                            <small id="passwordHelp1" class="form-text text-muted">
-                                                请输入大写字母、小写字母、数字组成的组合，至少8位，至多16位 </small>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="password2" class="col-sm-3"></label>
-                                        <div class="col-sm-9">
-                                            <input type="password" class="form-control" id="password2" placeholder="">
-                                            <small id="passwordHelp2" class="form-text text-muted"> 请输入再次确认密码 </small>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="name" class="col-sm-3">姓名</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="name" placeholder="">
-                                            <small id="nameHelp" class="form-text text-muted">
-                                                请输入您的姓名或昵称 最多20位 </small>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="sex" class="col-sm-3">性别</label>
-                                        <div class="col-sm-9">
-                                            <select id="sex" class="form-control">
-                                                <option value="true" selected>先生</option>
-                                                <option value="false">女士</option>
-                                            </select> <small id="sexHelp" class="form-text text-muted">
-                                                请告诉我们如何称呼您 </small>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-8 offset-sm-2">
-                                        <button type="submit" id="signupcheck"
-                                            class="btn btn-primary btn-lg btn-block">修改</button>
-                                    </div>
-
-                                </div>
-
-                            </form>
-                        </div>
-
                     </div>
-
 
                 </div>
 
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">添加理发师</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class='clearfix' style='margin-bottom: 20px;'></div>
+
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8">
+                        <form class="form-horizontal" onsubmit="">
+
+                            <div class="form-group has-success has-feedback">
+                                <label for="telnum" class="col-sm-3">手机号码</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="telnum" placeholder=""
+                                        aria-describedby="inputSuccess2Status">
+                                    <span class="glyphicon glyphicon-ok form-control-feedback"
+                                        aria-hidden="true"></span>
+                                    <span id="inputSuccess2Status" class="sr-only">(success)</span>
+                                    <small id="telnumHelp" class="form-text text-muted"> 请输入11位手机号码 </small>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password1" class="col-sm-3">密码</label>
+                                <div class="col-sm-9">
+                                    <input type="password" class="form-control" id="password1" placeholder=""> <small
+                                        id="passwordHelp1" class="form-text text-muted">
+                                        请输入大写字母、小写字母、数字组成的组合，至少8位，至多16位 </small>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password2" class="col-sm-3"></label>
+                                <div class="col-sm-9">
+                                    <input type="password" class="form-control" id="password2" placeholder=""> <small
+                                        id="passwordHelp2" class="form-text text-muted"> 请输入再次确认密码 </small>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="name" class="col-sm-3">姓名</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="name" placeholder="">
+                                    <small id="nameHelp" class="form-text text-muted">
+                                        请输入理发师的姓名或昵称 最多20位 </small>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="sex" class="col-sm-3">性别</label>
+                                <div class="col-sm-9">
+                                    <select id="sex" class="form-control">
+                                        <option value="true" selected>先生</option>
+                                        <option value="false">女士</option>
+                                    </select> <small id="sexHelp" class="form-text text-muted">
+                                        请输入理发师的性别 </small>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-offset-3 col-sm-9">
+                                <button type="submit" id="signupcheck" class="btn btn-primary btn-block">添加</button>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="col-sm-2"></div>
+
+
+
+                    <div class='clearfix' style='margin-bottom: 20px;'></div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
             </div>
         </div>
     </div>
