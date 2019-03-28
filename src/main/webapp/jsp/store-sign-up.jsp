@@ -19,7 +19,7 @@
         });
         function selectChange(addr) {
             var ee = 1;
-            $("<option></option>").appendTo('#addr' + ee);
+            $("<option value='0'></option>").appendTo('#addr' + ee);
             $.each(addr, function (index, item) {
                 $("<option value='" + item.code + "'>" + item.name + "</option>").appendTo('#addr' + ee);
             });
@@ -32,11 +32,12 @@
                     $("#addr" + i).empty();
                 }
 
-                $("<option value=''></option>").appendTo('#addr' + ee);
-
-                $.each(addr, function (index, item) {
-                    $("<option value='" + item.code + "'>" + item.name + "</option>").appendTo('#addr' + ee);
-                });
+                if (code != "0") {
+                    $("<option value='0'></option>").appendTo('#addr' + ee);
+                    $.each(addr, function (index, item) {
+                        $("<option value='" + item.code + "'>" + item.name + "</option>").appendTo('#addr' + ee);
+                    });
+                }
 
             });
 
@@ -81,18 +82,18 @@
                 return false;
             }
 
-            if (addr == "") {
+            if (addr == "0") {
                 alert("请选择店铺地址！");
                 return false;
             } else if ($('#addr1').val() == "47493" || $('#addr1').val() == "47494" || $('#addr1').val() == "47495") {
                 addr = $('#addr1').val();
-            } else if ($('#addr2').val() == "") {
+            } else if ($('#addr2').val() == "0") {
                 alert("请至少选择三级地址！");
                 return false;
-            } else if ($('#addr3').val() == "") {
+            } else if ($('#addr3').val() == "0") {
                 alert("请至少选择三级地址！");
                 return false;
-            } else if ($('#addr4').val() == "") {
+            } else if ($('#addr4').val() == "0") {
                 addr = $('#addr3').val();
             } else {
                 addr = $('#addr4').val();

@@ -59,7 +59,7 @@
 	<select id="quaryStoreBaber" parameterType="int" resultType="entiy.Baber">
 		SELECT *
 		FROM baber
-		WHERE baber_id = #{baberId}
+		WHERE store_id = #{storeId}
 	
 	</select>
 	

@@ -28,6 +28,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 import entiy.Address;
+import entiy.Baber;
 import entiy.Consumer;
 import entiy.Store;
 import service.Impl.AppointingServiceImpl;
@@ -60,6 +61,19 @@ public class AppointigController {
 
 		return pageinfo;
 	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/blist")
+	@ResponseBody
+	public PageInfo baberList(@RequestParam(value = "pn", defaultValue = "1") Integer pn) {
+		
+		int a=1;
+		List<Baber>blist = new ArrayList<Baber>();
+		PageHelper.startPage(pn, 6);
+		blist = appointingServiceImpl.quaryStoreBaber(a);
+		PageInfo pageinfo = new PageInfo(blist, 5);
+
+		return pageinfo;
+	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/consignup", produces = { "application/json; charset=utf-8" })
 	@ResponseBody
@@ -75,7 +89,6 @@ public class AppointigController {
 	@ResponseBody
 	public int stosignup(@RequestBody Store tel) {
 
-		System.out.println(tel.getcode()+"aaaaa22222222222222222222222222");
 		int result = appointingServiceImpl.insertStoreInfo(tel.getStoreId(), tel.getName(), tel.getcode(),
 				tel.getTelNum(), tel.getPassword(), tel.getDetailedAddress());
 		return result;
