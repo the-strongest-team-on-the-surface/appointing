@@ -65,9 +65,8 @@ public class AppointigController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "/sinfo", produces = { "application/json; charset=utf-8" })
 	@ResponseBody
-	public Store sinfo(@RequestBody Store tst) {
+	public Store sinfo(Integer storeId, HttpServletRequest request, HttpServletResponse response) {
 
-		int storeId = tst.getStoreId();
 		Store sif = appointingServiceImpl.quaryStoreInfo(storeId);
 		String tcode = sif.getcode();
 		String tsrr = "";

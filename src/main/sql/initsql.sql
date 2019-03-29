@@ -28,8 +28,8 @@ CREATE TABLE `baber` (
 	`is_working` boolean NOT NULL COMMENT'是否正在工作',
 	`store_id` int(11) NOT NULL COMMENT '店家ID',
 	`password` varchar(100) NOT NULL COMMENT'密码',
-	`default-working-time-period` varchar(100) NOT NULL COMMENT'默认工作时间段',
-	`actual-working-time-period` varchar(100) NOT NULL COMMENT'实际工作时间段',
+	`default_working_time_period` varchar(100) NOT NULL COMMENT'默认工作时间段',
+	`actual_working_time_period` varchar(100) NOT NULL COMMENT'实际工作时间段',
 	PRIMARY KEY (`baber_id`),
 	FOREIGN KEY (`store_id`) REFERENCES store(`store_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='理发师表';
