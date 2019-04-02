@@ -20,54 +20,58 @@
         <div class="col-md-6 column">
 
             <div class="row col-md-offset-8">
-                <a href='${pageContext.request.contextPath}/jsp/sign-up.jsp' role="button">跳到注册</a>
+                <a href='${pageContext.request.contextPath}/jsp/sign-up.jsp' role="button">跳转到顾客注册</a>
             </div>
             <div class="row col-md-offset-8">
                 <a href='${pageContext.request.contextPath}/jsp/log-in.jsp' role="button">如果已有账号，请直接登录</a>
             </div>
             <div class="clearfix" style="margin-bottom: 10px;"></div>
-            <form onsubmit="return onsm()">
+            <form class="form-horizontal" onsubmit="return onsm()">
 
-
-
-                <div class="form-group row">
-                    <label for="telnum" class="col-sm-3">手机号码</label>
+                <div class="form-group row has-feedback" id="dtelnum">
+                    <label for="telnum" class="col-sm-3 ">手机号码</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" id="telnum" placeholder=""> <small id="telnumHelp"
-                            class="form-text text-muted"> 请输入11位手机号码 </small>
+                        <input onchange="fretel()" type="text" class="form-control" id="telnum" placeholder="">
+                        <span id="stelnum"></span>
+                        <small id="telnumHelp" class=" form-text text-muted"> 请输入11位手机号码
+                        </small>
                     </div>
                 </div>
 
-                <div class="form-group row">
-                    <label for="password1" class="col-sm-3">密码</label>
+                <div class="form-group row has-feedback" id="dpassword1">
+                    <label for="password1" class=" col-sm-3">密码</label>
                     <div class="col-sm-9">
-                        <input type="password" class="form-control" id="password1" placeholder=""> <small
-                            id="passwordHelp1" class="form-text text-muted">
+                        <input onchange="frepassword1()" type="password" class="form-control" id="password1"
+                            placeholder=""><span id="spassword1"></span> <small id="passwordHelp1"
+                            class=" form-text text-muted">
                             请输入大写字母、小写字母、数字组成的组合，至少8位，至多16位 </small>
                     </div>
                 </div>
 
-                <div class="form-group row">
-                    <label for="password2" class="col-sm-3"></label>
+                <div class="form-group row has-feedback" id="dpassword2">
+                    <label for="password2" class=" col-sm-3"></label>
                     <div class="col-sm-9">
-                        <input type="password" class="form-control" id="password2" placeholder=""> <small
-                            id="passwordHelp2" class="form-text text-muted"> 请输入再次确认密码 </small>
+                        <input onchange="frepassword2()" type="password" class="form-control" id="password2"
+                            placeholder=""><span id="spassword2"></span> <small id="passwordHelp2"
+                            class=" form-text text-muted"> 请输入再次确认密码
+                        </small>
                     </div>
                 </div>
 
-                <div class="form-group row">
-                    <label for="name" class="col-sm-3">姓名</label>
+                <div class="form-group row has-feedback" id="dname">
+                    <label for="name" class=" col-sm-3">姓名</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" id="name" placeholder="">
-                        <small id="nameHelp" class="form-text text-muted">
-                            请输入您的姓名或昵称 最多20位 </small>
+                        <input type="text" onchange="frename()" class="form-control" id="name" placeholder=""><span
+                            id="sname"></span>
+                        <small id="nameHelp" class=" form-text text-muted">
+                            请输入店铺的姓名或昵称 最多20位 </small>
                     </div>
                 </div>
 
-                <div class="form-group row">
+                <div class="form-group row" id="ddaddr">
                     <label for="daddr" class="col-sm-3">详细地址</label>
                     <div class="col-sm-9">
-                        <textarea class="form-control" id="daddr" rows="3" maxlength="100"></textarea>
+                        <textarea onchange="fredaddr()" class="form-control" id="daddr" rows="3" maxlength="100"></textarea>
                         <small id="daddrHelp" class="form-text text-muted">
                             请输入店铺的详细地址 </small>
                     </div>

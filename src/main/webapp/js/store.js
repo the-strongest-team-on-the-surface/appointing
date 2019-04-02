@@ -20,9 +20,6 @@ function ttable(pageinfo, pn) {
 
     var blist = pageinfo.list;
 
-    var tnav = $("<nav aria-label='Page navigation'></nav>");
-    var tui = $("<ul class='pagination' id='home_nav'></ul>");
-
     $.each(blist, function (index, item) {
 
         if (index % 2 == 0) {
@@ -32,17 +29,27 @@ function ttable(pageinfo, pn) {
         var tdiv1 = $("<div></div>").addClass("col-md-6 column");
         var tdiv2 = $("<div></div>").addClass("col-md-3 column");
         var tdiv3 = $("<div></div>").addClass("col-md-9 column");
+        var tdiv4 = $("<div></div>").addClass("col-md-offset-6 row");
 
-        var th3 = $("<p></p>").addClass("text-left").text(item.name + item.baberId);
+        var tbtn1 = $("<button></button>").addClass("btn btn-danger btn-sm").append("<span class='glyphicon glyphicon-trash'></span>");
+        var tbtn2 = $("<button></button>").addClass("btn btn-success btn-sm")
+            .attr("onclick", "bvalue('" + item.baberId + "','" + item.name + "','" + item.telNum + "')").attr("data-toggle", "modal").attr("data-target", "#serviceModal")
+            .append("<span class='glyphicon glyphicon-pencil'></span>");
+        //var tbtn3 = $("<button></button>").addClass("btn btn-default btn-sm").append("<span class='glyphicon glyphicon-pencil'></span>");
+        var tbtn3 = $("<button></button>").addClass("btn btn-info btn-sm").text("请假");
+
+        var th3 = $("<h4></h4>").addClass("text-left").text(item.name + item.baberId);
         var tsmall = $("<small></small>").text("手机 ： " + item.telNum);
-        var timg = $("<img alt='50x50' src=''></img>");
-        tdiv1.append(tdiv2.append(timg)).append((tdiv3.append(th3)).append(tsmall)).appendTo("#home");
+        var timg = $("<img width='80' height='80' alt='50x50' src='C:\\workspace\\default3.jpg'></img>").addClass("img-circle");
+        tdiv1.append(tdiv2.append(timg)).append(((tdiv3.append(th3)).append(tsmall)).append(tdiv4.append(tbtn1).append(tbtn2).append(tbtn3))).appendTo("#home");
 
     });
 
     var obj = document.getElementById("p");
     obj.innerText = "当前第 " + pn + " 页， 共 " + pageinfo.pages + " 页， 共 " + pageinfo.total + " 条数据";
 
+    var tnav = $("<nav aria-label='Page navigation'></nav>");
+    var tui = $("<ul class='pagination' id='home_nav'></ul>");
     tnav.append(tui).appendTo("#home3");
 
     var tpn = pageinfo.pages - pageinfo.pageNum;
@@ -76,7 +83,7 @@ function ttable(pageinfo, pn) {
 
     var tlin = $("<li></li>").append($("<a id='next'><span>&raquo;</span></a>")).appendTo("#home_nav");
     var tlil = $("<li></li>").append($("<a id='last'></a>").text("Last")).appendTo("#home_nav");
-    alert("sssssssssssssss"+pageinfo.hasNextPage);
+
     if (!pageinfo.hasNextPage) {
         tlin.addClass("disabled");
         tlil.addClass("disabled");
@@ -274,6 +281,72 @@ function frepassword2() {
     }
 }
 
+function frebtime() {
+    var btime = $('#btime').val();
+    var etime = $('#etime').val();
+    var rebtime = /^(0?[1-9]|1[0-9]|2[0-4])$/;
+    var teetime = reetime.test(etime);
+    var tebtime = rebtime.test(btime) && (etime > btime) && teetime;
+
+    if (tebtime) {
+
+        if ($('#dbtime').hasClass("has-error")) {
+            $('#dbtime').removeClass("has-error");
+        }
+        if (!$('#dbtime').hasClass("has-success")) {
+            $('#dbtime').addClass("has-success");
+        }
+        $('#sbtime').removeClass();
+        $('#sbtime').addClass("glyphicon glyphicon-ok form-control-feedback");
+
+    } else {
+
+        if ($('#dbtime').hasClass("has-success")) {
+            $('#dbtime').removeClass("has-success");
+        }
+        if (!$('#dbtime').hasClass("has-error")) {
+            $('#dbtime').addClass("has-error");
+        }
+        $('#sbtime').removeClass();
+        $('#sbtime').addClass("glyphicon glyphicon-remove form-control-feedback");
+
+    }
+}
+
+function freetime() {
+    var btime = $('#btime').val();
+    var etime = $('#etime').val();
+    var reetime = /^(0?[1-9]|1[0-9]|2[0-4])$/;
+    var teetime = reetime.test(etime);
+    var tebtime = rebtime.test(btime);
+    teetime = teetime && (etime > btime) && tebtime;
+
+    if (teetime) {
+
+        if ($('#detime').hasClass("has-error")) {
+            $('#detime').removeClass("has-error");
+        }
+        if (!$('#detime').hasClass("has-success")) {
+            $('#detime').addClass("has-success");
+        }
+        $('#setime').removeClass();
+        $('#setime').addClass("glyphicon glyphicon-ok form-control-feedback");
+
+    } else {
+
+        if ($('#detime').hasClass("has-success")) {
+            $('#detime').removeClass("has-success");
+        }
+        if (!$('#detime').hasClass("has-error")) {
+            $('#detime').addClass("has-error");
+        }
+        $('#setime').removeClass();
+        $('#setime').addClass("glyphicon glyphicon-remove form-control-feedback");
+
+    }
+    frebtime();
+}
+
 function fnSignup() {
 
     var name = $('#name').val();
@@ -281,6 +354,8 @@ function fnSignup() {
     var telnum = $('#telnum').val();
     var password2 = $('#password2').val();
     var sex = $('#sex').val();
+    var btime = $('#btime').val();
+    var etime = $('#etime').val();
 
     var retel = /^1[34578]\d{9}$/;
     var tetel = retel.test(telnum);
@@ -289,9 +364,15 @@ function fnSignup() {
     var tepwdequ = password1 == password2;
     var rename = /^.{1,20}$/;
     var tename = rename.test(name);
+    var reetime = /[0-1]\d|2[0-4]/;
+    var teetime = reetime.test(etime);
+    var rebtime = /[0-1]\d|2[0-4]/;
+    var tebtime = rebtime.test(btime);
+    teetime = teetime && (etime >= btime);
+
 
     var param = {};
-    1
+
     param.telNum = telnum;
     param.password = password1;
     param.name = name;
@@ -299,7 +380,7 @@ function fnSignup() {
 
     return false;
 
-    if (telnum && tename && tepwd && tepwdequ) {
+    if (telnum && tename && tepwd && tepwdequ && tebtime && teetime) {
         $.ajax({
             type: 'POST',
             data: JSON.stringify(param),
@@ -319,4 +400,10 @@ function fnSignup() {
         })
     }
     return false;
+}
+
+function bvalue(a, b, c) {
+    alert("item.name");
+    $("#pp1").text(a);
+    $("#pp2").text(b + " " + c);
 }

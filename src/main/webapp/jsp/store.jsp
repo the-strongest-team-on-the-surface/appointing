@@ -36,7 +36,7 @@
                         <h3 class="panel-title">个人资料</h3>
                     </div>
                     <div class="panel-body">
-                        <img alt="140x140" src="" class="img-circle" />
+                        <img alt="140x140" src="C:\\workspace\\default3.jpg" class="img-circle" />
                         <h3 id="sinfoh3"></h3>
                         <p id="sinfop1"></p>
                         <button class="btn btn-danger" id="addbaber" data-toggle="modal"
@@ -48,10 +48,9 @@
 
             <div class="col-md-10 column ">
                 <div class="col-md-12 column well well-sm">
-                    <ul id="myTab" class="nav nav-tabs nav-justified">
-                        <li class="active"><a href="#home1" data-toggle="tab">预约</a></li>
-                        <li><a href="#ios" data-toggle="tab">我的预约</a></li>
-                        <li><a href="#ch" data-toggle="tab">修改信息</a></li>
+                    <ul id="myTab" class="nav nav-tabs">
+                        <li class="active"><a href="#home1" data-toggle="tab">理发师</a></li>
+                        <li><a href="#ios" data-toggle="tab">修改信息</a></li>
                     </ul>
                 </div>
                 <div id="myTabContent" class="tab-content ">
@@ -59,7 +58,10 @@
                     <div class="tab-pane fade in active " id="home1">
 
                         <div class='clearfix' style='margin-bottom: 30px;'></div>
-                        <div style="position:relative;left:20px;top:0px;width:900px;height:300px" id="home"></div>
+                        <div class="junbotron well">
+                            <div style="position:relative;left:20px;top:0px;width:900px;height:300px" id="home"></div>
+                        </div>
+
                         <div class="col-md-4" id="home4">
                             <div class='clearfix' style='margin-bottom: 30px;'></div>
                             <p id="p"></p>
@@ -69,9 +71,7 @@
                     </div>
 
                     <div class="tab-pane fade" id="ios">
-                    </div>
 
-                    <div class="tab-pane fade" id="ch">
                     </div>
 
                 </div>
@@ -82,13 +82,12 @@
 
 
     <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">添加理发师</h4>
                 </div>
 
@@ -152,9 +151,79 @@
                                 </div>
                             </div>
 
+                            <div class="form-group row has-feedback" id="dbtime">
+                                <label for="btime" class="col-sm-3">上班时间</label>
+                                <div class="col-sm-9">
+                                    <input type="text" onchange="frebtime()" class="form-control" id="btime">
+                                    <span id="sbtime"></span>
+                                    <small id="btimeHelp" class=" form-text text-muted">请输入0-24之间整数</small>
+                                </div>
+                            </div>
+
+                            <div class="form-group row has-feedback" id="detime">
+                                <label for="etime" class="col-sm-3">下班时间</label>
+                                <div class="col-sm-9">
+                                    <input type="text" onchange="freetime()" class="form-control" id="etime">
+                                    <span id="setime"></span>
+                                    <small id="btimeHelp" class=" form-text text-muted">请输入0-24之间整数</small>
+                                </div>
+                            </div>
+
                             <div class="col-sm-offset-3 col-sm-9 row">
                                 <button type="submit" id="signupcheck"
                                     class="btn btn-primary btn-lg btn-block">注册</button>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="col-sm-2"></div>
+
+
+
+                    <div class='clearfix' style='margin-bottom: 20px;'></div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary">保存更改</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="serviceModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                    <h4 class="modal-title" id="serviceModalLabel">添加服务</h4>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class='clearfix' style='margin-bottom: 20px;'></div>
+
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8">
+                        <form class="form-horizontal" onsubmit="return fnSignup()">
+
+                            <div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 ">理发师ID</label>
+                                    <div class="col-sm-9">
+                                        <p id="pp1" class="form-control-static"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 ">理发师信息</label>
+                                    <div class="col-sm-9">
+                                        <p id="pp2" class="form-control-static"></p>
+                                    </div>
+                                </div>
                             </div>
 
                         </form>
