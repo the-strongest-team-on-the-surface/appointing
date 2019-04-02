@@ -24,7 +24,7 @@
 			consumer_id = #{consumerId}
 	</select>
 	
-	<select id="quaryBaberStore" parameterType="int" resultType="entiy.Appointing" >
+	<select id="quaryBaberAppointing" parameterType="int" resultType="entiy.Appointing" >
 		<!-- 具体的sql -->
 		SELECT
 			*

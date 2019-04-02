@@ -8,14 +8,14 @@ public class Appointing {
 	private int baberId;
 	private int appointingId;
 	private int serviceId;
-	private Date appointedTime;
+	private String appointedTime;
 	private String status;
 	
 	public Appointing() {
 		
 	}
 
-	public Appointing(int consumerId, int baberId, int appointingId, int serviceId, Date appointedTime,
+	public Appointing(int consumerId, int baberId, int appointingId, int serviceId, String appointedTime,
 			String status) {
 		super();
 		this.consumerId = consumerId;
@@ -58,11 +58,11 @@ public class Appointing {
 		this.serviceId = serviceId;
 	}
 
-	public Date getAppointedTime() {
+	public String getAppointedTime() {
 		return appointedTime;
 	}
 
-	public void setAppointedTime(Date appointedTime) {
+	public void setAppointedTime(String appointedTime) {
 		this.appointedTime = appointedTime;
 	}
 

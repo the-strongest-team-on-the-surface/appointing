@@ -15,7 +15,7 @@
 
 <body>
     <div class="container">
-        <div class="clearfix" style="margin-bottom: 120px;"></div>
+        <div class="clearfix" style="margin-bottom: 30px;"></div>
         <div class="col-md-3 column"></div>
         <div class="col-md-6 column">
 

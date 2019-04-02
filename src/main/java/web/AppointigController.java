@@ -30,6 +30,7 @@ import com.github.pagehelper.PageInfo;
 import entiy.Address;
 import entiy.Baber;
 import entiy.Consumer;
+import entiy.Service;
 import entiy.Store;
 import service.Impl.AppointingServiceImpl;
 
@@ -37,11 +38,13 @@ import service.Impl.AppointingServiceImpl;
 @RequestMapping("/wtf")
 public class AppointigController {
 
-	// private Logger logger = LoggerFactory.getLogger(this.getClass());
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	private AppointingServiceImpl appointingServiceImpl;
-
+	String addressCode="0";
+	
+	
 	@RequestMapping(method = RequestMethod.GET, value = "/addr")
 	@ResponseBody
 	public List<Address> addr(@RequestParam(value = "code", defaultValue = "0") String code) {
@@ -123,5 +126,62 @@ public class AppointigController {
 			return 0;
 		}
 	}
+	
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/storesCode")
+	@ResponseBody
+	public void List(@RequestParam(value = "code", defaultValue = "1") String code) {
 
+		addressCode=code;
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/stores")
+	@ResponseBody
+	public PageInfo List(int pn,String code,HttpServletRequest request,HttpServletResponse response){
+
+		
+		List<Store> tlist = new ArrayList<Store>();
+		
+		PageHelper.startPage(pn, 6);
+		tlist=appointingServiceImpl.quaryAllStore(code);  
+		PageInfo pageinfo = new PageInfo(tlist, 5);
+		return pageinfo;
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/baberBystoreId")
+	@ResponseBody
+	public List<Baber> baberBystoreId(@RequestParam(value = "storeId", defaultValue = "1") int storeId) {
+		List<Baber> tlist = new ArrayList<Baber>();
+		tlist=appointingServiceImpl.quaryStoreBaber(storeId);
+		return tlist;
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/servicesBybaberId")
+	@ResponseBody
+	public List<Service> sevicesBybaberId(@RequestParam(value = "baberId", defaultValue = "1") int baberId) {
+		List<Service> tlist = new ArrayList<Service>();
+		tlist=appointingServiceImpl.quaryServiceInfo(baberId);
+		return tlist;
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/baberinfoByid")
+	@ResponseBody
+	public Baber baberinfoByid(@RequestParam(value = "baberId", defaultValue = "1") int baberId) {
+		Baber tlist = new Baber();
+		tlist=appointingServiceImpl.quaryBaBerInfo(baberId);
+		return tlist;
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/addAppoint")
+	@ResponseBody
+	public boolean addAppoint(int pn,String code,HttpServletRequest request,HttpServletResponse response){
+
+		
+		List<Store> tlist = new ArrayList<Store>();
+		
+		PageHelper.startPage(pn, 6);
+		tlist=appointingServiceImpl.quaryAllStore(code);  
+		PageInfo pageinfo = new PageInfo(tlist, 5);
+		return true;
+	}
 }

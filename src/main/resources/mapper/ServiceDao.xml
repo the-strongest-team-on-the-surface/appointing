@@ -7,10 +7,7 @@
 	<select id="quaryServiceInfo" parameterType="int" resultType="entiy.Service" >
 		<!-- 具体的sql -->
 		SELECT
-			service_id,
-			name,
-			price,
-			duration
+			*
 		FROM
 			service
 		WHERE
