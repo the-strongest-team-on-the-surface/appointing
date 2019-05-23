@@ -1,409 +1,519 @@
-$(function () {
+var TSTORE;
+var TBABER;
 
-    tsinfo(1);
-    tgpl(1);
+$(function() {
+	
+	$.ajaxSetup({
+        async: false
+    });
+	inits();
+	tsinfo(TSTORE.storeId);
+	tgpl(1);
 
 });
 
+function inits() {
+	
+	var param = {};
+	param.telNum = getCookie("2");
+	if (checkCookie()) {
+		$.post(pageContext + "/wtf/storebyid", param, function(result) {
+			TSTORE = result;
+		});
+	} else {
+		alert("请登录店家账号!");
+		location.href = pageContext + "/jsp/log-in.jsp";
+	}
+
+}
+
 function tgpl(pn) {
 
-    $("#home").empty();
-    $("#home3").empty();
-    $.get(pageContext + "/wtf/blist?pn=" + pn, function (pageinfo) {
-        if (pn != 0)
-            ttable(pageinfo, pn);
-    });
+	$("#home").empty();
+	$("#home3").empty();
+	var param = {};
+	param.pn = pn;
+	param.storeId = TSTORE.storeId;
+	
+	$.post(pageContext + "/wtf/blist", param, function(pageinfo) {
+		if (pn != 0)
+			ttable(pageinfo, pn);
+	});
 
 }
 
 function ttable(pageinfo, pn) {
 
-    var blist = pageinfo.list;
+	var blist = pageinfo.list;
 
-    $.each(blist, function (index, item) {
+	$
+			.each(
+					blist,
+					function(index, item) {
 
-        if (index % 2 == 0) {
-            $("<div class='clearfix' style='margin-bottom: 10px;'></div>").appendTo('#home');
-        }
+						if (index % 2 == 0) {
+							$(
+									"<div class='clearfix' style='margin-bottom: 10px;'></div>")
+									.appendTo('#home');
+						}
 
-        var tdiv1 = $("<div></div>").addClass("col-md-6 column");
-        var tdiv2 = $("<div></div>").addClass("col-md-3 column");
-        var tdiv3 = $("<div></div>").addClass("col-md-9 column");
-        var tdiv4 = $("<div></div>").addClass("col-md-offset-6 row");
+						var tdiv1 = $("<div></div>")
+								.addClass("col-md-6 column");
+						var tdiv2 = $("<div></div>")
+								.addClass("col-md-3 column");
+						var tdiv3 = $("<div></div>")
+								.addClass("col-md-9 column");
+						var tdiv4 = $("<div></div>").addClass(
+								"col-md-offset-6 row");
 
-        var tbtn1 = $("<button></button>").addClass("btn btn-danger btn-sm").append("<span class='glyphicon glyphicon-trash'></span>");
-        var tbtn2 = $("<button></button>").addClass("btn btn-success btn-sm")
-            .attr("onclick", "bvalue('" + item.baberId + "','" + item.name + "','" + item.telNum + "')").attr("data-toggle", "modal").attr("data-target", "#serviceModal")
-            .append("<span class='glyphicon glyphicon-pencil'></span>");
-        //var tbtn3 = $("<button></button>").addClass("btn btn-default btn-sm").append("<span class='glyphicon glyphicon-pencil'></span>");
-        var tbtn3 = $("<button></button>").addClass("btn btn-info btn-sm").text("请假");
+						var tbtn1 = $("<button></button>")
+								.addClass("btn btn-danger btn-sm")
+								.append(
+										"<span class='glyphicon glyphicon-trash'></span>");
+						var tbtn2 = $("<button></button>")
+								.addClass("btn btn-success btn-sm")
+								.attr(
+										"onclick",
+										"bvalue('" + item.baberId + "','"
+												+ item.name + "','"
+												+ item.telNum + "')")
+								.attr("data-toggle", "modal")
+								.attr("data-target", "#serviceModal")
+								.append(
+										"<span class='glyphicon glyphicon-pencil'></span>");
+						// var tbtn3 = $("<button></button>").addClass("btn
+						// btn-default btn-sm").append("<span class='glyphicon
+						// glyphicon-pencil'></span>");
+						var tbtn3 = $("<button></button>").addClass(
+								"btn btn-info btn-sm").text("请假");
 
-        var th3 = $("<h4></h4>").addClass("text-left").text(item.name + item.baberId);
-        var tsmall = $("<small></small>").text("手机 ： " + item.telNum);
-        var timg = $("<img width='80' height='80' alt='50x50' src='C:\\workspace\\default3.jpg'></img>").addClass("img-circle");
-        tdiv1.append(tdiv2.append(timg)).append(((tdiv3.append(th3)).append(tsmall)).append(tdiv4.append(tbtn1).append(tbtn2).append(tbtn3))).appendTo("#home");
+						var th3 = $("<h4></h4>").addClass("text-left").text(
+								item.name + item.baberId);
+						var tsmall = $("<small></small>").text(
+								"手机 ： " + item.telNum);
+						var timg = $(
+								"<img width='80' height='80' alt='50x50' src='C:\\workspace\\default3.jpg'></img>")
+								.addClass("img-circle");
+						tdiv1.append(tdiv2.append(timg)).append(
+								((tdiv3.append(th3)).append(tsmall))
+										.append(tdiv4.append(tbtn1).append(
+												tbtn2).append(tbtn3)))
+								.appendTo("#home");
 
-    });
+					});
 
-    var obj = document.getElementById("p");
-    obj.innerText = "当前第 " + pn + " 页， 共 " + pageinfo.pages + " 页， 共 " + pageinfo.total + " 条数据";
+	var obj = document.getElementById("p");
+	obj.innerText = "当前第 " + pn + " 页， 共 " + pageinfo.pages + " 页， 共 "
+			+ pageinfo.total + " 条数据";
 
-    var tnav = $("<nav aria-label='Page navigation'></nav>");
-    var tui = $("<ul class='pagination' id='home_nav'></ul>");
-    tnav.append(tui).appendTo("#home3");
+	var tnav = $("<nav aria-label='Page navigation'></nav>");
+	var tui = $("<ul class='pagination' id='home_nav'></ul>");
+	tnav.append(tui).appendTo("#home3");
 
-    var tpn = pageinfo.pages - pageinfo.pageNum;
+	var tpn = pageinfo.pages - pageinfo.pageNum;
 
-    var tin;
-    if (pn == 1) tin = 0; else if (pn == 2) tin = -1; else tin = -2;
+	var tin;
+	if (pn == 1)
+		tin = 0;
+	else if (pn == 2)
+		tin = -1;
+	else
+		tin = -2;
 
-    var tli = $("<li></li>");
-    var tlif = $("<li></li>").append($("<a id='first'></a>").text("First")).appendTo("#home_nav");
-    var tlip = $("<li></li>").append($("<a id='pre'><span>&laquo;</span></a>")).appendTo("#home_nav");
+	var tli = $("<li></li>");
+	var tlif = $("<li></li>").append($("<a id='first'></a>").text("First"))
+			.appendTo("#home_nav");
+	var tlip = $("<li></li>").append($("<a id='pre'><span>&laquo;</span></a>"))
+			.appendTo("#home_nav");
 
-    if (pn == 1) {
-        tlif.addClass("disabled");
-        tlip.addClass("disabled");
-    } else {
-        $("#pre").attr("onclick", "tgpl(" + (pn - 1) + ")");
-        $("#first").attr("onclick", "tgpl(1)");
-    }
+	if (pn == 1) {
+		tlif.addClass("disabled");
+		tlip.addClass("disabled");
+	} else {
+		$("#pre").attr("onclick", "tgpl(" + (pn - 1) + ")");
+		$("#first").attr("onclick", "tgpl(1)");
+	}
 
+	for (var index = tin; index <= (tpn < 2 ? tpn : 2); index++) {
 
-    for (var index = tin; index <= (tpn < 2 ? tpn : 2); index++) {
+		var tli2 = $("<li></li>");
+		if (index == 0) {
+			tli2.addClass("active");
+		}
+		tli2.append(
+				$("<a onclick='tgpl(" + (pn + index) + ")'></a>").text(
+						pn + index)).appendTo("#home_nav");
 
-        var tli2 = $("<li></li>");
-        if (index == 0) {
-            tli2.addClass("active");
-        }
-        tli2.append($("<a onclick='tgpl(" + (pn + index) + ")'></a>").text(pn + index)).appendTo("#home_nav");
+	}
 
-    }
+	var tlin = $("<li></li>")
+			.append($("<a id='next'><span>&raquo;</span></a>")).appendTo(
+					"#home_nav");
+	var tlil = $("<li></li>").append($("<a id='last'></a>").text("Last"))
+			.appendTo("#home_nav");
 
-
-    var tlin = $("<li></li>").append($("<a id='next'><span>&raquo;</span></a>")).appendTo("#home_nav");
-    var tlil = $("<li></li>").append($("<a id='last'></a>").text("Last")).appendTo("#home_nav");
-
-    if (!pageinfo.hasNextPage) {
-        tlin.addClass("disabled");
-        tlil.addClass("disabled");
-    } else {
-        $("#next").attr("onclick", "tgpl(" + (pn + 1) + ")");
-        $("#last").attr("onclick", "tgpl(" + (pageinfo.pages) + ")");
-    }
+	if (!pageinfo.hasNextPage) {
+		tlin.addClass("disabled");
+		tlil.addClass("disabled");
+	} else {
+		$("#next").attr("onclick", "tgpl(" + (pn + 1) + ")");
+		$("#last").attr("onclick", "tgpl(" + (pageinfo.pages) + ")");
+	}
 
 }
 
 function tsinfo(storeId) {
 
-    var param = {};
-    param.storeId = storeId;
-    $.ajax({
-        type: 'POST',
-        data: param,
-        dataType: 'json',
-        url: pageContext + '/wtf/sinfo',
-        async: false,
-        success: function (data) {
-            var obj = document.getElementById("sinfoh3");
-            obj.innerText = data.name;
-            var obj = document.getElementById("sinfop1");
-            obj.innerText = data.code + "\n" + data.detailedAddress;
-        },
-        error: function (e) {
-            alert("system error");
-        }
-    })
+	var param = {};
+	param.storeId = storeId;
+	$.ajax({
+		type : 'POST',
+		data : param,
+		url : pageContext + '/wtf/sinfo',
+		async : false,
+		success : function(data) {
+			var obj = document.getElementById("sinfoh3");
+			obj.innerText = data.name;
+			var obj = document.getElementById("sinfop1");
+			obj.innerText = data.code + "\n" + data.detailedAddress;
+		},
+		error : function(e) {
+			alert("system error");
+		}
+	})
 }
 
 function tclick(i) {
-    alert("test" + i);
+	alert("test" + i);
 }
 
 function fretel() {
-    var telnum = $('#telnum').val();
-    var retel = /^1[34578]\d{9}$/;
-    var tetel = retel.test(telnum);
-    if (telnum == "") {
-        if ($('#dtelnum').hasClass("has-error")) {
-            $('#dtelnum').removeClass("has-error");
-        }
-        if ($('#dtelnum').hasClass("has-success")) {
-            $('#dtelnum').removeClass("has-success");
-        }
-        $('#stelnum').removeClass();
-        return;
-    }
-    if (tetel) {
+	var telnum = $('#telnum').val();
+	var retel = /^1[34578]\d{9}$/;
+	var tetel = retel.test(telnum);
+	if (telnum == "") {
+		if ($('#dtelnum').hasClass("has-error")) {
+			$('#dtelnum').removeClass("has-error");
+		}
+		if ($('#dtelnum').hasClass("has-success")) {
+			$('#dtelnum').removeClass("has-success");
+		}
+		$('#stelnum').removeClass();
+		return;
+	}
+	if (tetel) {
 
-        if ($('#dtelnum').hasClass("has-error")) {
-            $('#dtelnum').removeClass("has-error");
-        }
-        if (!$('#dtelnum').hasClass("has-success")) {
-            $('#dtelnum').addClass("has-success");
-        }
-        $('#stelnum').removeClass();
-        $('#stelnum').addClass("glyphicon glyphicon-ok form-control-feedback");
+		if ($('#dtelnum').hasClass("has-error")) {
+			$('#dtelnum').removeClass("has-error");
+		}
+		if (!$('#dtelnum').hasClass("has-success")) {
+			$('#dtelnum').addClass("has-success");
+		}
+		$('#stelnum').removeClass();
+		$('#stelnum').addClass("glyphicon glyphicon-ok form-control-feedback");
 
-    } else {
+	} else {
 
-        if ($('#dtelnum').hasClass("has-success")) {
-            $('#dtelnum').removeClass("has-success");
-        }
-        if (!$('#dtelnum').hasClass("has-error")) {
-            $('#dtelnum').addClass("has-error");
-        }
-        $('#stelnum').removeClass();
-        $('#stelnum').addClass("glyphicon glyphicon-remove form-control-feedback");
+		if ($('#dtelnum').hasClass("has-success")) {
+			$('#dtelnum').removeClass("has-success");
+		}
+		if (!$('#dtelnum').hasClass("has-error")) {
+			$('#dtelnum').addClass("has-error");
+		}
+		$('#stelnum').removeClass();
+		$('#stelnum').addClass(
+				"glyphicon glyphicon-remove form-control-feedback");
 
-    }
+	}
 }
 
 function frename() {
-    var name = $('#name').val();
-    var rename = /^.{1,20}$/;
-    var tename = rename.test(name);
-    if (name == "") {
-        if ($('#dname').hasClass("has-error")) {
-            $('#dname').removeClass("has-error");
-        }
-        if ($('#dname').hasClass("has-success")) {
-            $('#dname').removeClass("has-success");
-        }
-        $('#sname').removeClass();
-        return;
-    }
-    if (tename) {
+	var name = $('#name').val();
+	var rename = /^.{1,20}$/;
+	var tename = rename.test(name);
+	if (name == "") {
+		if ($('#dname').hasClass("has-error")) {
+			$('#dname').removeClass("has-error");
+		}
+		if ($('#dname').hasClass("has-success")) {
+			$('#dname').removeClass("has-success");
+		}
+		$('#sname').removeClass();
+		return;
+	}
+	if (tename) {
 
-        if ($('#dname').hasClass("has-error")) {
-            $('#dname').removeClass("has-error");
-        }
-        if (!$('#dname').hasClass("has-success")) {
-            $('#dname').addClass("has-success");
-        }
-        $('#sname').removeClass();
-        $('#sname').addClass("glyphicon glyphicon-ok form-control-feedback");
+		if ($('#dname').hasClass("has-error")) {
+			$('#dname').removeClass("has-error");
+		}
+		if (!$('#dname').hasClass("has-success")) {
+			$('#dname').addClass("has-success");
+		}
+		$('#sname').removeClass();
+		$('#sname').addClass("glyphicon glyphicon-ok form-control-feedback");
 
-    } else {
+	} else {
 
-        if ($('#dname').hasClass("has-success")) {
-            $('#dname').removeClass("has-success");
-        }
-        if (!$('#dname').hasClass("has-error")) {
-            $('#dname').addClass("has-error");
-        }
-        $('#sname').removeClass();
-        $('#sname').addClass("glyphicon glyphicon-remove form-control-feedback");
+		if ($('#dname').hasClass("has-success")) {
+			$('#dname').removeClass("has-success");
+		}
+		if (!$('#dname').hasClass("has-error")) {
+			$('#dname').addClass("has-error");
+		}
+		$('#sname').removeClass();
+		$('#sname')
+				.addClass("glyphicon glyphicon-remove form-control-feedback");
 
-    }
+	}
 }
 
 function frepassword1() {
-    var password1 = $('#password1').val();
-    var repwd = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,16}$/;
-    var tepwd = repwd.test(password1);
-    if (password1 == "") {
-        if ($('#dpassword1').hasClass("has-error")) {
-            $('#dpassword1').removeClass("has-error");
-        }
-        if ($('#dpassword1').hasClass("has-success")) {
-            $('#dpassword1').removeClass("has-success");
-        }
-        $('#spassword1').removeClass();
-        return;
-    }
-    if (tepwd) {
+	var password1 = $('#password1').val();
+	var repwd = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,16}$/;
+	var tepwd = repwd.test(password1);
+	if (password1 == "") {
+		if ($('#dpassword1').hasClass("has-error")) {
+			$('#dpassword1').removeClass("has-error");
+		}
+		if ($('#dpassword1').hasClass("has-success")) {
+			$('#dpassword1').removeClass("has-success");
+		}
+		$('#spassword1').removeClass();
+		return;
+	}
+	if (tepwd) {
 
-        if ($('#dpassword1').hasClass("has-error")) {
-            $('#dpassword1').removeClass("has-error");
-        }
-        if (!$('#dpassword1').hasClass("has-success")) {
-            $('#dpassword1').addClass("has-success");
-        }
-        $('#spassword1').removeClass();
-        $('#spassword1').addClass("glyphicon glyphicon-ok form-control-feedback");
+		if ($('#dpassword1').hasClass("has-error")) {
+			$('#dpassword1').removeClass("has-error");
+		}
+		if (!$('#dpassword1').hasClass("has-success")) {
+			$('#dpassword1').addClass("has-success");
+		}
+		$('#spassword1').removeClass();
+		$('#spassword1').addClass(
+				"glyphicon glyphicon-ok form-control-feedback");
 
-    } else {
+	} else {
 
-        if ($('#dpassword1').hasClass("has-success")) {
-            $('#dpassword1').removeClass("has-success");
-        }
-        if (!$('#dpassword1').hasClass("has-error")) {
-            $('#dpassword1').addClass("has-error");
-        }
-        $('#spassword1').removeClass();
-        $('#spassword1').addClass("glyphicon glyphicon-remove form-control-feedback");
+		if ($('#dpassword1').hasClass("has-success")) {
+			$('#dpassword1').removeClass("has-success");
+		}
+		if (!$('#dpassword1').hasClass("has-error")) {
+			$('#dpassword1').addClass("has-error");
+		}
+		$('#spassword1').removeClass();
+		$('#spassword1').addClass(
+				"glyphicon glyphicon-remove form-control-feedback");
 
-    }
+	}
 
-    frepassword2();
+	frepassword2();
 
 }
 
 function frepassword2() {
-    var password1 = $('#password1').val();
-    var repwd = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,16}$/;
-    var tepwd = repwd.test(password1);
-    var password2 = $('#password2').val();
-    var tepwdequ = password1 == password2;
-    if (password2 == "" && password1 == "") {
-        if ($('#dpassword2').hasClass("has-error")) {
-            $('#dpassword2').removeClass("has-error");
-        }
-        if ($('#dpassword2').hasClass("has-success")) {
-            $('#dpassword2').removeClass("has-success");
-        }
-        $('#spassword2').removeClass();
-        return;
-    }
-    if (tepwdequ && tepwd) {
+	var password1 = $('#password1').val();
+	var repwd = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,16}$/;
+	var tepwd = repwd.test(password1);
+	var password2 = $('#password2').val();
+	var tepwdequ = password1 == password2;
+	if (password2 == "" && password1 == "") {
+		if ($('#dpassword2').hasClass("has-error")) {
+			$('#dpassword2').removeClass("has-error");
+		}
+		if ($('#dpassword2').hasClass("has-success")) {
+			$('#dpassword2').removeClass("has-success");
+		}
+		$('#spassword2').removeClass();
+		return;
+	}
+	if (tepwdequ && tepwd) {
 
-        if ($('#dpassword2').hasClass("has-error")) {
-            $('#dpassword2').removeClass("has-error");
-        }
-        if (!$('#dpassword2').hasClass("has-success")) {
-            $('#dpassword2').addClass("has-success");
-        }
-        $('#spassword2').removeClass();
-        $('#spassword2').addClass("glyphicon glyphicon-ok form-control-feedback");
+		if ($('#dpassword2').hasClass("has-error")) {
+			$('#dpassword2').removeClass("has-error");
+		}
+		if (!$('#dpassword2').hasClass("has-success")) {
+			$('#dpassword2').addClass("has-success");
+		}
+		$('#spassword2').removeClass();
+		$('#spassword2').addClass(
+				"glyphicon glyphicon-ok form-control-feedback");
 
-    } else {
+	} else {
 
-        if ($('#dpassword2').hasClass("has-success")) {
-            $('#dpassword2').removeClass("has-success");
-        }
-        if (!$('#dpassword2').hasClass("has-error")) {
-            $('#dpassword2').addClass("has-error");
-        }
-        $('#spassword2').removeClass();
-        $('#spassword2').addClass("glyphicon glyphicon-remove form-control-feedback");
+		if ($('#dpassword2').hasClass("has-success")) {
+			$('#dpassword2').removeClass("has-success");
+		}
+		if (!$('#dpassword2').hasClass("has-error")) {
+			$('#dpassword2').addClass("has-error");
+		}
+		$('#spassword2').removeClass();
+		$('#spassword2').addClass(
+				"glyphicon glyphicon-remove form-control-feedback");
 
-    }
+	}
 }
 
 function frebtime() {
-    var btime = $('#btime').val();
-    var etime = $('#etime').val();
-    var rebtime = /^(0?[1-9]|1[0-9]|2[0-4])$/;
-    var teetime = reetime.test(etime);
-    var tebtime = rebtime.test(btime) && (etime > btime) && teetime;
+	var btime = $('#btime').val();
+	var etime = $('#etime').val();
+	var rebtime = /^(0?[1-9]|1[0-9]|2[0-4])$/;
+	var teetime = reetime.test(etime);
+	var tebtime = rebtime.test(btime) && (etime > btime) && teetime;
 
-    if (tebtime) {
+	if (tebtime) {
 
-        if ($('#dbtime').hasClass("has-error")) {
-            $('#dbtime').removeClass("has-error");
-        }
-        if (!$('#dbtime').hasClass("has-success")) {
-            $('#dbtime').addClass("has-success");
-        }
-        $('#sbtime').removeClass();
-        $('#sbtime').addClass("glyphicon glyphicon-ok form-control-feedback");
+		if ($('#dbtime').hasClass("has-error")) {
+			$('#dbtime').removeClass("has-error");
+		}
+		if (!$('#dbtime').hasClass("has-success")) {
+			$('#dbtime').addClass("has-success");
+		}
+		$('#sbtime').removeClass();
+		$('#sbtime').addClass("glyphicon glyphicon-ok form-control-feedback");
 
-    } else {
+	} else {
 
-        if ($('#dbtime').hasClass("has-success")) {
-            $('#dbtime').removeClass("has-success");
-        }
-        if (!$('#dbtime').hasClass("has-error")) {
-            $('#dbtime').addClass("has-error");
-        }
-        $('#sbtime').removeClass();
-        $('#sbtime').addClass("glyphicon glyphicon-remove form-control-feedback");
+		if ($('#dbtime').hasClass("has-success")) {
+			$('#dbtime').removeClass("has-success");
+		}
+		if (!$('#dbtime').hasClass("has-error")) {
+			$('#dbtime').addClass("has-error");
+		}
+		$('#sbtime').removeClass();
+		$('#sbtime').addClass(
+				"glyphicon glyphicon-remove form-control-feedback");
 
-    }
+	}
 }
 
 function freetime() {
-    var btime = $('#btime').val();
-    var etime = $('#etime').val();
-    var reetime = /^(0?[1-9]|1[0-9]|2[0-4])$/;
-    var teetime = reetime.test(etime);
-    var tebtime = rebtime.test(btime);
-    teetime = teetime && (etime > btime) && tebtime;
+	var btime = $('#btime').val();
+	var etime = $('#etime').val();
+	var reetime = /^(0?[1-9]|1[0-9]|2[0-4])$/;
+	var teetime = reetime.test(etime);
+	var tebtime = rebtime.test(btime);
+	teetime = teetime && (etime > btime) && tebtime;
 
-    if (teetime) {
+	if (teetime) {
 
-        if ($('#detime').hasClass("has-error")) {
-            $('#detime').removeClass("has-error");
-        }
-        if (!$('#detime').hasClass("has-success")) {
-            $('#detime').addClass("has-success");
-        }
-        $('#setime').removeClass();
-        $('#setime').addClass("glyphicon glyphicon-ok form-control-feedback");
+		if ($('#detime').hasClass("has-error")) {
+			$('#detime').removeClass("has-error");
+		}
+		if (!$('#detime').hasClass("has-success")) {
+			$('#detime').addClass("has-success");
+		}
+		$('#setime').removeClass();
+		$('#setime').addClass("glyphicon glyphicon-ok form-control-feedback");
 
-    } else {
+	} else {
 
-        if ($('#detime').hasClass("has-success")) {
-            $('#detime').removeClass("has-success");
-        }
-        if (!$('#detime').hasClass("has-error")) {
-            $('#detime').addClass("has-error");
-        }
-        $('#setime').removeClass();
-        $('#setime').addClass("glyphicon glyphicon-remove form-control-feedback");
+		if ($('#detime').hasClass("has-success")) {
+			$('#detime').removeClass("has-success");
+		}
+		if (!$('#detime').hasClass("has-error")) {
+			$('#detime').addClass("has-error");
+		}
+		$('#setime').removeClass();
+		$('#setime').addClass(
+				"glyphicon glyphicon-remove form-control-feedback");
 
-    }
-    frebtime();
+	}
+	frebtime();
 }
 
 function fnSignup() {
 
-    var name = $('#name').val();
-    var password1 = $('#password1').val();
-    var telnum = $('#telnum').val();
-    var password2 = $('#password2').val();
-    var sex = $('#sex').val();
-    var btime = $('#btime').val();
-    var etime = $('#etime').val();
+	var name = $('#name').val();
+	var password1 = $('#password1').val();
+	var telnum = $('#telnum').val();
+	var password2 = $('#password2').val();
+	var sex = $('#sex').val();
+	var btime = $('#btime').val();
+	var etime = $('#etime').val();
 
-    var retel = /^1[34578]\d{9}$/;
-    var tetel = retel.test(telnum);
-    var repwd = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,16}$/;
-    var tepwd = repwd.test(password1);
-    var tepwdequ = password1 == password2;
-    var rename = /^.{1,20}$/;
-    var tename = rename.test(name);
-    var reetime = /[0-1]\d|2[0-4]/;
-    var teetime = reetime.test(etime);
-    var rebtime = /[0-1]\d|2[0-4]/;
-    var tebtime = rebtime.test(btime);
-    teetime = teetime && (etime >= btime);
+	var retel = /^1[34578]\d{9}$/;
+	var tetel = retel.test(telnum);
+	var repwd = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,16}$/;
+	var tepwd = repwd.test(password1);
+	var tepwdequ = password1 == password2;
+	var rename = /^.{1,20}$/;
+	var tename = rename.test(name);
+	var reetime = /[0-1]\d|2[0-4]/;
+	var teetime = reetime.test(etime);
+	var rebtime = /[0-1]\d|2[0-4]/;
+	var tebtime = rebtime.test(btime);
+	teetime = teetime && (etime >= btime);
 
+	var param = {};
 
-    var param = {};
+	param.telNum = telnum;
+	param.password = password1;
+	param.name = name;
+	param.sex = sex;
 
-    param.telNum = telnum;
-    param.password = password1;
-    param.name = name;
-    param.sex = sex;
+	return false;
 
-    return false;
+	if (telnum && tename && tepwd && tepwdequ && tebtime && teetime) {
+		$.ajax({
+			type : 'POST',
+			data : JSON.stringify(param),
+			contentType : 'application/json',
+			dataType : 'json',
+			url : pageContext + '/wtf/consignup',
+			async : false,
+			success : function(data) {
+				if (data > 0)
+					alert("注册成功")
+				else
+					alert("注册失败！")
+			},
+			error : function(e) {
+				alert("system error");
+			}
+		})
+	}
+	return false;
+}
 
-    if (telnum && tename && tepwd && tepwdequ && tebtime && teetime) {
-        $.ajax({
-            type: 'POST',
-            data: JSON.stringify(param),
-            contentType: 'application/json',
-            dataType: 'json',
-            url: pageContext + '/wtf/consignup',
-            async: false,
-            success: function (data) {
-                if (data > 0)
-                    alert("注册成功")
-                else
-                    alert("注册失败！")
-            },
-            error: function (e) {
-                alert("system error");
-            }
-        })
-    }
-    return false;
+function fnServiceSignup() {
+
 }
 
 function bvalue(a, b, c) {
-    alert("item.name");
-    $("#pp1").text(a);
-    $("#pp2").text(b + " " + c);
+	alert("item.name");
+	$("#pp1").text(a);
+	$("#pp2").text(b + " " + c);
+}
+
+function setCookie(cname, cvalue, exdays) {
+	var d = new Date();
+	d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+	var expires = "expires=" + d.toGMTString();
+	document.cookie = cname + "=" + cvalue + "; " + expires;
+}
+
+function getCookie(cname) {
+	var name = cname + "=";
+	var ca = document.cookie.split(';');
+	for (var i = 0; i < ca.length; i++) {
+		var c = ca[i].trim();
+		if (c.indexOf(name) == 0) {
+			return c.substring(name.length, c.length);
+		}
+	}
+	return "";
+}
+
+function checkCookie() {
+	var user = getCookie("2");
+	if (user != "") {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function clearCookie(name) {
+	setCookie(name, "", -1);
 }

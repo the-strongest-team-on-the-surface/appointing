@@ -15,6 +15,22 @@ $(function () {
         selectChange(addr);
     });
 });
+/*
+function inits() {
+	
+	var param = {};
+	param.telNum = getCookie("2");
+	if (checkCookie()) {
+		$.post(pageContext + "/wtf/storebyid", param, function(result) {
+			TSTORE = result;
+		});
+	} else {
+		alert("请登录店家账号!");
+		location.href = pageContext + "/jsp/log-in.jsp";
+	}
+
+}
+*/
 function selectChange(addr) {
     var ee = 1;
     $("<option value='0'></option>").appendTo('#addr' + ee);

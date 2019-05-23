@@ -15,7 +15,7 @@
     </style> -->
 
     <meta charset="utf-8">
-    <title>登录</title>
+    <title>理发店</title>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js"></script>
@@ -207,7 +207,7 @@
 
                     <div class="col-sm-2"></div>
                     <div class="col-sm-8">
-                        <form class="form-horizontal" onsubmit="return fnSignup()">
+                        <form class="form-horizontal" onsubmit="return fnServiceSignup">
 
                             <div>
                                 <div class="form-group row">

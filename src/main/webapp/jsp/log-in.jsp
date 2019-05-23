@@ -25,7 +25,7 @@
                     欢迎登录理发预约系统！
                 </h1>
                 <div class="clearfix" style="margin-bottom: 120px;"></div>
-                <form class="form-horizontal" onsubmit="return login()">
+                <form class="form-horizontal">
                     <div class="form-group row">
                         <label for="telNUm" class="col-sm-3">
                             手机号：
@@ -40,18 +40,18 @@
                     </div>
                     <div class="form-group col-sm-3 offset-sm-3">
                         <select id="userType" class="form-control">
-                            <option value="consumer" selected>顾客</option>
-                            <option value="store">商家</option>
-                            <option value="baber">理发师</option>
+                            <option value="1" selected>顾客</option>
+                            <option value="2">商家</option>
+                            <option value="3">理发师</option>
                         </select>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-4 offset-sm-3">
-                            <button id="sign-up" onClick="window.open('${pageContext.request.contextPath}/jsp/sign-up.jsp')" type="button"
+                            <button id="sign-up" onClick="location.href='${pageContext.request.contextPath}/jsp/sign-up.jsp'" type="button"
                                 class="btn btn-primary btn-lg btn-block">注册</button>
                         </div>
                         <div class="col-sm-4 offset-sm-1">
-                            <button id="log-in" type="submit" class="btn btn-primary btn-lg btn-block">登录</button>
+                            <button id="log-in" type="button"  onclick="return login()" class="btn btn-primary btn-lg btn-block">登录</button>
                         </div>
                     </div>
 

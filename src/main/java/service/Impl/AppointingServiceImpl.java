@@ -68,7 +68,7 @@ public class AppointingServiceImpl implements AppointingService {
 		// TODO 自动生成的方法存根
 		return storeDao.changeStoreInfo(storeId, name, code, telNum, password, detailedAddress);
 	}
-	public String quaryStorePassword(String telNum) {
+	public Store quaryStorePassword(String telNum) {
 		// TODO 自动生成的方法存根
 		return storeDao.quaryStorePassword(telNum);
 	}
@@ -88,7 +88,7 @@ public class AppointingServiceImpl implements AppointingService {
 		// TODO 自动生成的方法存根
 		return addressDao.quaryName(code);
 	}
-	public String quaryBaberPassword(String telNum) {
+	public Baber quaryBaberPassword(String telNum) {
 		// TODO 自动生成的方法存根
 		return baberDao.quaryBaberPassword(telNum);
 	}
@@ -110,7 +110,7 @@ public class AppointingServiceImpl implements AppointingService {
 		// TODO 自动生成的方法存根
 		return baberDao.quaryStoreBaber(storeId);
 	}
-	public String quaryConsumerPassword(String telNum) {
+	public Consumer quaryConsumerPassword(String telNum) {
 		// TODO 自动生成的方法存根
 		return consumerDao.quaryConsumerPassword(telNum);
 	}

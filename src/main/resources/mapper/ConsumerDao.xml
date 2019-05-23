@@ -3,10 +3,10 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.ConsumerDao">
-	<select id="quaryConsumerPassword" parameterType="String" resultType="String" >
+	<select id="quaryConsumerPassword" parameterType="String" resultType="entiy.Consumer" >
 		<!-- 具体的sql -->
 		SELECT
-			password
+			*
 		FROM
 			consumer
 		WHERE

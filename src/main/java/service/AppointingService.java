@@ -25,7 +25,7 @@ public interface AppointingService {
 	//Store
 	int insertStoreInfo(int storeId, String name, String code, String telNum, String password, String detailedAddress);
 	int changeStoreInfo(int storeId, String name, String code, String telNum, String password, String detailedAddress);
-	String quaryStorePassword(String telNum);
+	Store quaryStorePassword(String telNum);
 	Store quaryStoreInfo(int storeId);
 	List<Store> quaryAllStore(String code);
 	
@@ -34,7 +34,7 @@ public interface AppointingService {
 	String quaryAddrName(String code);
 	
 	//baber
-	String quaryBaberPassword( String telNum);
+	Baber quaryBaberPassword( String telNum);
 	Baber quaryBaBerInfo( int baberId);
 	int insertBaberInfo( int baberId, 
 			 String name,
@@ -57,7 +57,7 @@ public interface AppointingService {
 	List<Baber> quaryStoreBaber( int storeId);
 	
 	//customer
-	String quaryConsumerPassword(String telNum);
+	Consumer quaryConsumerPassword(String telNum);
 	Consumer quaryConsumerInfo(int consumerId);
 	int insertConsumerInfo(int consumerId, String name, String telNum, String password, boolean sex);
 	int changeConsumerInfo(int consumerId, String name, String telNum, String password, boolean sex);

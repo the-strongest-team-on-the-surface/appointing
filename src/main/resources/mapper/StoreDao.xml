@@ -3,10 +3,10 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.StoreDao">
-	<select id="quaryStorePassword" parameterType="String" resultType="String" >
+	<select id="quaryStorePassword" parameterType="String" resultType="entiy.Store" >
 		<!-- 具体的sql -->
 		SELECT
-			password
+			*
 		FROM
 			store
 		WHERE

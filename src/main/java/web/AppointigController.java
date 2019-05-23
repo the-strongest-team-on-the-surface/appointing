@@ -53,22 +53,21 @@ public class AppointigController {
 		return tlist;
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/blist")
+	@RequestMapping(method = RequestMethod.POST, value = "/blist")
 	@ResponseBody
-	public PageInfo baberList(@RequestParam(value = "pn", defaultValue = "1") Integer pn) {
+	public PageInfo baberList(int pn,int storeId,HttpServletRequest request,HttpServletResponse response) {
 
-		int a = 1;
 		List<Baber> blist = new ArrayList<Baber>();
 		PageHelper.startPage(pn, 6);
-		blist = appointingServiceImpl.quaryStoreBaber(a);
+		blist = appointingServiceImpl.quaryStoreBaber(storeId);
 		PageInfo pageinfo = new PageInfo(blist, 5);
 
 		return pageinfo;
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = "/sinfo", produces = { "application/json; charset=utf-8" })
+	@RequestMapping(method = RequestMethod.POST, value = "/sinfo")
 	@ResponseBody
-	public Store sinfo(Integer storeId, HttpServletRequest request, HttpServletResponse response) {
+	public Store sinfo(int storeId, HttpServletRequest request, HttpServletResponse response) {
 
 		Store sif = appointingServiceImpl.quaryStoreInfo(storeId);
 		String tcode = sif.getcode();
@@ -115,12 +114,24 @@ public class AppointigController {
 
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = "/pwdverify", produces = { "application/json; charset=utf-8" })
+	@RequestMapping(method = RequestMethod.POST, value = "/pwdverify")
 	@ResponseBody
-	public int pwdverify(@RequestBody Consumer tel) {
-
-		String tpwd = appointingServiceImpl.quaryConsumerPassword(tel.getTelNum());
-		if (tpwd.equals(tel.getPassword())) {
+	public int pwdverify(String telNum, String password, int userType, HttpServletRequest request,HttpServletResponse response) {
+		String tpwd;
+		switch(userType) {
+			case 1:
+				tpwd = appointingServiceImpl.quaryConsumerPassword(telNum).getPassword();
+				break;
+			case 2:
+				tpwd = appointingServiceImpl.quaryStorePassword(telNum).getPassword();
+				break;
+			case 3:
+				tpwd = appointingServiceImpl.quaryBaberPassword(telNum).getPassword();
+				break;
+			default:
+				return 0;
+		}
+		if (tpwd.equals(password)) {
 			return 1;
 		} else {
 			return 0;
@@ -183,5 +194,11 @@ public class AppointigController {
 		tlist=appointingServiceImpl.quaryAllStore(code);  
 		PageInfo pageinfo = new PageInfo(tlist, 5);
 		return true;
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/storebyid")
+	@ResponseBody
+	public Store getStoreByTel(String telNum, HttpServletRequest request,HttpServletResponse response) {
+		return appointingServiceImpl.quaryStorePassword(telNum);
 	}
 }
