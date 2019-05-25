@@ -5,6 +5,7 @@ import java.util.List;
 
 import entiy.Address;
 import entiy.Appointing;
+import entiy.AppointingInfo;
 import entiy.Baber;
 import entiy.Consumer;
 import entiy.Service;
@@ -18,9 +19,11 @@ public interface AppointingService {
 	List<Appointing> quaryConsumerAppointingByStatue(int consumerId, String status);
 	List<Appointing> quaryBaberAppointingByStatue(int baberId, String status);
 	
-	int insertAppointingInfo(int appointingId,int consumerId,int baberId,int serviceId,Date appointedTime,String status);
+	int insertAppointingInfo(int appointingId,int consumerId,int baberId,int serviceId,String appointedTime,String status);
 	
 	int changeAppointingInfo(int appointingId, String status);
+	
+	List<AppointingInfo> quaryAppointingInfoByConsumerId(int consumerId);
 	
 	//Store
 	int insertStoreInfo(int storeId, String name, String code, String telNum, String password, String detailedAddress);

@@ -31,20 +31,12 @@
 	
 	<update id="changeBaberInfo">
 		UPDATE baber
-			name, 
-			tel_num, 
-			sex, 
-			is_working, 
-			store_id, 
-			password, 
-			default_working_time_period, 
-			actual_working_time_period
 		SET
 			name = #{name},
 			tel_num = #{telNum}, 
 			sex = #{sex}, 
 			is_working = #{isWorking}, 
-			Store_id = #{storeId}, 
+			store_id = #{storeId}, 
 			password = #{password}, 
 			default_working_time_period = #{defaultWorkingTimePeriod}, 
 			actual_working_time_period = #{actualWorkingTimePeriod}

@@ -16,6 +16,7 @@ import dao.ServiceDao;
 import dao.StoreDao;
 import entiy.Address;
 import entiy.Appointing;
+import entiy.AppointingInfo;
 import entiy.Baber;
 import entiy.Consumer;
 import entiy.Store;
@@ -51,7 +52,7 @@ public class AppointingServiceImpl implements AppointingService {
 		return appointingDao.quaryBaberAppointingByStatue(baberId, status);
 	}
 	
-	public int insertAppointingInfo(int appointingId,int consumerId,int baberId,int serviceId,Date appointedTime,String status) {
+	public int insertAppointingInfo(int appointingId,int consumerId,int baberId,int serviceId,String appointedTime,String status) {
 		return appointingDao.insertAppointingInfo(appointingId, consumerId, baberId, serviceId, appointedTime, status);
 	}
 	
@@ -142,6 +143,9 @@ public class AppointingServiceImpl implements AppointingService {
 		// TODO 自动生成的方法存根
 		return baberDao.deleteBaber(baberId);
 	}
-	
+	public List<AppointingInfo> quaryAppointingInfoByConsumerId(int consumerId) {
+		// TODO Auto-generated method stub
+		return appointingDao.quaryAppointingInfoByConsumerId(consumerId);
 
+	}
 }

@@ -8,13 +8,62 @@ var SERVICEID;
 var SERVICENAME;
 var SERVICETIME;
 var SERVICEPRICE;
+var CONSUMERTEL;//用户手机号
+var CONSUMERID=1;//用户ID
+var CONSUMERNAME;//用户昵称
+var CONSUMERSEX;//用户性别
+var T;
 //查找地址
 $(function () {
+    CONSUMERTEL=getCookie("1");
+    alert(CONSUMERTEL);
     var code = "0";
     $.get(pageContext + "/wtf/addr?code=" + code, function (addr) {
+        
         selectChange(addr);
+        initConsumerInfo();
+        showMyAppointing();
     });
 });
+
+function getCookie(cname){
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0; i<ca.length; i++) {
+        var c = ca[i].trim();
+        if (c.indexOf(name)==0) { return c.substring(name.length,c.length); }
+    }
+    return "";
+}
+
+function initConsumerInfo(){
+    var temp=$("#consumerinfo");
+    //CONSUMERTEL="13900000001";
+    var params = {
+        "telNum":CONSUMERTEL,
+    }
+    $.ajax({
+        type: "post",
+        url: pageContext + "/wtf/consumerbytel",
+        data: params,
+        dataType: 'json',
+        success: function (consumer) {
+           CONSUMERID=consumer.consumerId;
+           CONSUMERNAME=consumer.name;
+           CONSUMERSEX=consumer.sex?"男":"女";
+           var img=$("<img alt='140x140' src='C:\\Users\\Administrator\\Desktop\\default3.jpg' class='img-circle' /><br>");
+           var tele1=$("<p>电话："+CONSUMERTEL+" </p><br>")
+           var name1=$("<p>昵称："+CONSUMERNAME+" </p><br>")
+           var sex1=$("<p>性别："+CONSUMERSEX+" </p><br>")
+           temp.append(img).append(tele1).append(name1).append(sex1);
+        }
+    })
+
+
+    
+
+}
+
 /*
 function inits() {
 	
@@ -119,7 +168,7 @@ function show_stores(stores_info) {
         var tsmall = $("<small></small>").text("详细信息 ： " + item.detailedAddress);
         var timg = $("<img alt='70x70' src='C:\\Users\\Administrator\\Desktop\\default1.jpg'></img>");
 
-        tdiv1.append(tdiv2.append(timg)).append((tdiv3.append(th3).append(th4).append(tsmall))).appendTo("#stores");
+        tdiv1.append(tdiv2.append(timg)).append((tdiv3.append(th3).append(th4).append($("<br>")).append(tsmall))).appendTo("#stores");
 
 
     });
@@ -201,7 +250,8 @@ function to_baber(id) {
             var header = $("<div class='header'></div>");
             var image = $("<img alt='140x140' src='C:\\Users\\Administrator\\Desktop\\default1.jpg' class='img-circle' />");
             var baberinfo = $("<p class='panel-title col-sm-offset-2'></p>");
-            var a = $("<a data-toggle='collapse' data-parent='#accordion' id='baber" + item.baberId + "' name='" + item.actualWorkingTimePeriod + "' href='#collapse" + item.baberId + "'> 姓名：" + item.name + "  性别：" + item.sex + "</br>电话：" + item.telNum + "</br>详细信息：" + "sdkjflksdajflkdssdjfllksajf" + "</a>");
+            var sex=item.sex?"男":"女";
+            var a = $("<a data-toggle='collapse' data-parent='#accordion' id='baber" + item.baberId + "' name='" + item.actualWorkingTimePeriod + "' href='#collapse" + item.baberId + "'> 姓名：" + item.name + "  性别：" + sex + "</br>电话：" + item.telNum + "</br>详细信息：" + "sdkjflksdajflkdssdjfllksajf" + "</a>");
             var btn = $("<button type='button' class='btn btn-primary col-sm-offset-9' onclick='appoint(" + item.baberId + ")' data-toggle='modal' data-target='#myModal'>预约</button>");
 
             if (item.baberId == 1)
@@ -220,8 +270,8 @@ function to_baber(id) {
                 $.each(services, function (sindex, sitem) {
 
                     var t1 = $("<label class='checkbox'><input type='radio' id='service1" + sitem.serviceId + "' name='radio" + item.baberId + "'value='" + sitem.name + "'>" + sitem.name + "</label>");
-                    var t2 = $("<label id='service2" + sitem.serviceId + "'>时长：" + sitem.duration + "分钟" + "</label>");
-                    var t3 = $("<label id='service3" + sitem.serviceId + "'>" + "价格：" + sitem.price + "元" + "</label>");
+                    var t2 = $("<label id='service2" + sitem.serviceId + "'>时长: " + sitem.duration + "分钟" + "</label>");
+                    var t3 = $("<label id='service3" + sitem.serviceId + "'>" + "价格: " + sitem.price + "元" + "</label>");
                     if (!sindex) {
                         t1.prop("checked", "checked");
                         t1.click();
@@ -263,15 +313,17 @@ function createModel() {
     var time = $("#times");
     body.empty();
     time.empty();
-    var text0 = $("<h3>预约信息：</h3>");
+    
     var text1 = $("<h4></h4>").text("理发店：" + STORENAME);
     var text2 = $("<h4></h4>").text("电话：" + STORETEL);
     var text3 = $("<h4></h4>").text("理发师：" + BABERNAME);
     var text4 = $("<h4></h4>").text("项目：" + SERVICENAME + "  " + SERVICETIME + "  " + SERVICEPRICE);
     body.append(text1).append(text2).append(text3).append(text4);
     $.get(pageContext + "/wtf/baberinfoByid?baberId=" + BABERID, function (baber) {
+        
         BABERWORK = baber.actualWorkingTimePeriod;
     })
+    
     var today = new Date();
     var tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000);
     var houday = new Date(tomorrow.getTime() + 24 * 60 * 60 * 1000);
@@ -283,13 +335,14 @@ function createModel() {
     $("<option value='-1'>请选择预约时间 </option>").appendTo(time);
     for (var day = 0; day < 3; ++day) {
         for (var h = 0; h < 24; ++h) {
-            if (!day && flag) {
-                h = days[day].getHours();
-                flag = 0;
+            if (day==0 && flag==1) {
+                h = days[day].getHours()+1;
+                T=h+1;
+                flag = 0; 
                 continue;
             }
-            if (BABERWORK[day * h] == '1') {
-                $("<option value='" + day * h + "'>" + (days[day].getMonth() + 1) + " 月" + days[day].getDate() + " 日 " + h + ":00" + "</option>").appendTo(time);
+            if (BABERWORK[day * 24 + h] == '1') {
+                $("<option value='" + day * 24 + h + "'>" + (days[day].getMonth() + 1) + " 月" + days[day].getDate() + " 日 " + h + ":00" + "</option>").appendTo(time);
             }
         }
     }
@@ -297,17 +350,96 @@ function createModel() {
 
 function confirm()
 {
+    var options=$("#times option:selected");//获取当前选择项.
+    var index=$("#times ").get(0).selectedIndex;
+    changeWorkTime(index);
+    if(index==0 )
+        alert("请选择时间！");
+    else if(changeWorkTime(index)==1)
+    {
+        alert("该项目在该时间段有冲突，请选择其他时间！");
+    }
+    else{
+        var params = {
+            "baberId":BABERID,
+            "consumerId":1,
+            "serviceId":SERVICEID,
+            "appointedTime":options.text(),
+            "status":"预约中"
+        }
+        $.ajax({
+            type: "post",
+            url: pageContext + "/wtf/addAppoint",
+            data: params,
+            dataType: 'json',
+            success: function (ret) {
+                changeWorkTime(index);
+                alert("预约成功！");
+                $('#myModal').modal('hide');
+            }
+        })
+    }
+    
+}
+//修改baber工作时间
+function changeWorkTime(index)
+{
+    var x=SERVICETIME.indexOf(" ");
+    var y=SERVICETIME.indexOf("分钟");
+    var ti=SERVICETIME.substring(x+1,y);
+    var d=Math.ceil(Number(ti)/60);
+    var temp="";
+    temp=BABERWORK.substring(0,T+index);
+    for(var j=0;j<d;++j)
+    {          
+        if(BABERWORK[T+index+j]=='0')
+        {
+            return 0;
+        } 
+        temp+='0';
+    }
+    temp+=BABERWORK.substring(T+index+d);
+    BABERWORK=temp;
     var params = {
-        "pn": pn,
-        "code": code,
+        "baberId":Number(BABERID),
+        "actualWorkingTimePeriod":BABERWORK
     }
     $.ajax({
         type: "post",
-        url: pageContext + "/wtf/addAppoint",
+        url: pageContext + "/wtf/changebabertime",
         data: params,
         dataType: 'json',
         success: function (ret) {
-           alert("预约成功！");
+            //alert("修改成功！");
+        }
+    })
+    return 1;
+}
+
+function showMyAppointing()
+{
+    var params = {
+        "consumerId":CONSUMERID,
+    }
+    var tablebady=$("#appointtable")
+    // alert(CONSUMERID);
+    $.ajax({
+        type: "post",
+        url: pageContext + "/wtf/queryAppointingInfoByConsumerId",
+        data: params,
+        dataType: 'json',
+        success: function (AppointingInfo) {
+            $.each(AppointingInfo, function (index, item)
+            {
+                var tr=$("<tr></tr>");
+                var time=$("<td>"+item.time+"</td>");
+                var storeName=$("<td>"+item.storeName+"</td>");
+                var baberName=$("<td>"+item.baberName+"</td>");
+                var serviceName=$("<td>"+item.serviceName+"</td>");
+                var price=$("<td>"+item.price+"</td>");
+                var status=$("<td>"+item.status+"</td>");
+                tr.append(time).append(storeName).append(baberName).append(serviceName).append(price).append(status).appendTo(tablebady);
+            })
         }
     })
 }

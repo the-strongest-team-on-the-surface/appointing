@@ -55,8 +55,8 @@
                     <div class="panel-heading">
                         <h3 class="panel-title">个人资料</h3>
                     </div>
-                    <div class="panel-body">
-                        <img alt="140x140" src="C:\Users\Administrator\Desktop\default3.jpg" class="img-circle" />
+                    <div class="panel-body" id="consumerinfo">
+                        
                     </div>
                 </div>
 
@@ -67,7 +67,7 @@
                         <li class="active"><a href="#storeaddress" data-toggle="tab">选择商店</a></li>
                         <li><a href="#baber" data-toggle="tab">理发预约</a></li>
                         <li><a href="#myappoint" data-toggle="tab">我的预约</a></li>
-                        <li><a href="#changeinfo" data-toggle="tab">修改信息</a></li>
+                        <!-- <li><a href="#changeinfo" data-toggle="tab">修改信息</a></li> -->
                     </ul>
                 </div>
 
@@ -133,6 +133,7 @@
                     </div>
 
                     <div class="tab-pane fade" id="myappoint">
+
                         <table class="table table-hover table-striped">
                             <thead>
                                 <tr>
@@ -156,58 +157,13 @@
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        1
-                                    </td>
-                                    <td>
-                                        TB - Monthly
-                                    </td>
-                                    <td>
-                                        01/04/2012
-                                    </td>
-                                    <td>
-                                        Default
-                                    </td>
-                                    <td>
-                                        Default
-                                    </td>
-                                    <td>
-                                        Default
-                                    </td>
-
-                                </tr>
+                            <tbody id="appointtable">
+                                
                             </tbody>
                         </table>
-                        <div class="col-sm-offset-7">
-                            <ul class="pagination">
-                                <li>
-                                    <a href="#">Prev</a>
-                                </li>
-                                <li>
-                                    <a href="#">1</a>
-                                </li>
-                                <li>
-                                    <a href="#">2</a>
-                                </li>
-                                <li>
-                                    <a href="#">3</a>
-                                </li>
-                                <li>
-                                    <a href="#">4</a>
-                                </li>
-                                <li>
-                                    <a href="#">5</a>
-                                </li>
-                                <li>
-                                    <a href="#">Next</a>
-                                </li>
-                            </ul>
-                        </div>
                     </div>
 
-                    <div class="tab-pane fade" id="changeinfo">
+                    <!-- <div class="tab-pane fade" id="changeinfo">
                         <div class="clearfix" style="margin-bottom: 30px;"></div>
                         <div class="col-sm-6 column col-sm-offset-3">
                             <form class="form-horizontal" onsubmit="">
@@ -263,7 +219,7 @@
                             </form>
                         </div>
 
-                    </div>
+                    </div> -->
 
 
                 </div>
@@ -294,8 +250,7 @@
                                 </div>
                                 <div class=" col-sm-3 col-md-offset-1">
                                     <select class="form-control" id="times">
-                                        <option value='-1'>请选择预约时间 </option>
-                                        
+                                        <option value='-1'> 请选择预约时间 </option>
                                     </select>
                                 </div>
 

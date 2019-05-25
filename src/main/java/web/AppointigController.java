@@ -28,6 +28,8 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 import entiy.Address;
+import entiy.Appointing;
+import entiy.AppointingInfo;
 import entiy.Baber;
 import entiy.Consumer;
 import entiy.Service;
@@ -213,13 +215,10 @@ public class AppointigController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "/addAppoint")
 	@ResponseBody
-	public boolean addAppoint(int pn, String code, HttpServletRequest request, HttpServletResponse response) {
+	public boolean addAppoint(Appointing app,HttpServletRequest request,HttpServletResponse response){
+		
+		appointingServiceImpl.insertAppointingInfo(app.getAppointingId(), app.getConsumerId(), app.getBaberId(), app.getServiceId(), app.getAppointedTime(), app.getStatus());
 
-		List<Store> tlist = new ArrayList<Store>();
-
-		PageHelper.startPage(pn, 6);
-		tlist = appointingServiceImpl.quaryAllStore(code);
-		PageInfo pageinfo = new PageInfo(tlist, 5);
 		return true;
 	}
 
@@ -242,4 +241,27 @@ public class AppointigController {
 	public int addservice(@RequestBody Service tel) {
 		return appointingServiceImpl.insertServiceInfo(tel.getServiceId(), tel.getName(), tel.getPrice(), 1, tel.getBaberId());
 	}
-}
+
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/consumerbytel")
+	@ResponseBody
+	public Consumer getConsumerByTel(String telNum, HttpServletRequest request,HttpServletResponse response) {
+		
+		return appointingServiceImpl.quaryConsumerPassword(telNum);
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/changebabertime")
+	@ResponseBody
+	public boolean changeBaberTime(int baberId,String actualWorkingTimePeriod, HttpServletRequest request,HttpServletResponse response) {
+		Baber b = appointingServiceImpl.quaryBaBerInfo(baberId);
+		appointingServiceImpl.changeBaberInfo(b.getBaberId(), b.getName(), b.getTelNum(), b.isSex(), b.isWorking(), b.getStoreId(), b.getPassword(), b.getDefaultWorkingTimePeriod(), actualWorkingTimePeriod);
+		return true;
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/queryAppointingInfoByConsumerId")
+	@ResponseBody
+	public List<AppointingInfo> queryAppointingInfoByConsumerId(Integer consumerId,HttpServletRequest request,HttpServletResponse response) {
+		
+		return appointingServiceImpl.quaryAppointingInfoByConsumerId(consumerId);
+	}
+};
