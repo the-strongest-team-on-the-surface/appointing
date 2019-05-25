@@ -14,10 +14,10 @@
 			baber_id = #{baberId}
 	</select>
 	
-	<insert id="insertAppointment">
+	<insert id="insertServiceInfo">
 		<!-- ignore 主键冲突，报错 -->
 		INSERT ignore INTO service(service_id, name,price,duration,baber_id)
-		VALUES (#{serviceId}, #{name},#{price},#{duration},#{baberId})
+		VALUES (null, #{name},#{price},#{duration},#{baberId})
 	</insert>
 	
 	

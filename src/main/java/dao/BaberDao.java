@@ -27,5 +27,6 @@ public interface BaberDao {
 			@Param("defaultWorkingTimePeriod") String defaultWorkingTimePeriod,
 			@Param("actualWorkingTimePeriod") String actualWorkingTimePeriod);
 	List<Baber> quaryStoreBaber(@Param("storeId") int storeId);
+	int deleteBaber(int baberId);
 	
 }

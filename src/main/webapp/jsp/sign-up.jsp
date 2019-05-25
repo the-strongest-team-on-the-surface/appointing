@@ -20,7 +20,7 @@
         <div class="col-md-6 column">
 
             <div class="row col-md-offset-8">
-                <a href='${pageContext.request.contextPath}/jsp/baber-sign-up.jsp' role="button">商家注册，请点击跳转</a>
+                <a href='${pageContext.request.contextPath}/jsp/store-sign-up.jsp' role="button">商家注册，请点击跳转</a>
             </div>
             <div class="row col-md-offset-8">
                 <a href='${pageContext.request.contextPath}/jsp/log-in.jsp' role="button">如果已有账号，请直接登录</a>

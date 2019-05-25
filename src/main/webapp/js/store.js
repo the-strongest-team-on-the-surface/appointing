@@ -2,10 +2,10 @@ var TSTORE;
 var TBABER;
 
 $(function() {
-	
+
 	$.ajaxSetup({
-        async: false
-    });
+		async : false
+	});
 	inits();
 	tsinfo(TSTORE.storeId);
 	tgpl(1);
@@ -13,7 +13,7 @@ $(function() {
 });
 
 function inits() {
-	
+
 	var param = {};
 	param.telNum = getCookie("2");
 	if (checkCookie()) {
@@ -34,7 +34,7 @@ function tgpl(pn) {
 	var param = {};
 	param.pn = pn;
 	param.storeId = TSTORE.storeId;
-	
+
 	$.post(pageContext + "/wtf/blist", param, function(pageinfo) {
 		if (pn != 0)
 			ttable(pageinfo, pn);
@@ -68,6 +68,13 @@ function ttable(pageinfo, pn) {
 
 						var tbtn1 = $("<button></button>")
 								.addClass("btn btn-danger btn-sm")
+								.attr(
+										"onclick",
+										"bvalue('" + item.baberId + "','"
+												+ item.name + "','"
+												+ item.telNum + "')")
+								.attr("data-toggle", "modal")
+								.attr("data-target", "#deleteModal")
 								.append(
 										"<span class='glyphicon glyphicon-trash'></span>");
 						var tbtn2 = $("<button></button>")
@@ -78,14 +85,20 @@ function ttable(pageinfo, pn) {
 												+ item.name + "','"
 												+ item.telNum + "')")
 								.attr("data-toggle", "modal")
-								.attr("data-target", "#serviceModal")
+								.attr("data-target", "#alterModal")
 								.append(
 										"<span class='glyphicon glyphicon-pencil'></span>");
-						// var tbtn3 = $("<button></button>").addClass("btn
-						// btn-default btn-sm").append("<span class='glyphicon
-						// glyphicon-pencil'></span>");
-						var tbtn3 = $("<button></button>").addClass(
-								"btn btn-info btn-sm").text("请假");
+						var tbtn3 = $("<button></button>")
+								.addClass("btn btn-info btn-sm")
+								.attr(
+										"onclick",
+										"bvalue('" + item.baberId + "','"
+												+ item.name + "','"
+												+ item.telNum + "')")
+								.attr("data-toggle", "modal")
+								.attr("data-target", "#serviceModal")
+								.append(
+										"<span class='glyphicon glyphicon-plus'></span>");
 
 						var th3 = $("<h4></h4>").addClass("text-left").text(
 								item.name + item.baberId);
@@ -354,74 +367,6 @@ function frepassword2() {
 	}
 }
 
-function frebtime() {
-	var btime = $('#btime').val();
-	var etime = $('#etime').val();
-	var rebtime = /^(0?[1-9]|1[0-9]|2[0-4])$/;
-	var teetime = reetime.test(etime);
-	var tebtime = rebtime.test(btime) && (etime > btime) && teetime;
-
-	if (tebtime) {
-
-		if ($('#dbtime').hasClass("has-error")) {
-			$('#dbtime').removeClass("has-error");
-		}
-		if (!$('#dbtime').hasClass("has-success")) {
-			$('#dbtime').addClass("has-success");
-		}
-		$('#sbtime').removeClass();
-		$('#sbtime').addClass("glyphicon glyphicon-ok form-control-feedback");
-
-	} else {
-
-		if ($('#dbtime').hasClass("has-success")) {
-			$('#dbtime').removeClass("has-success");
-		}
-		if (!$('#dbtime').hasClass("has-error")) {
-			$('#dbtime').addClass("has-error");
-		}
-		$('#sbtime').removeClass();
-		$('#sbtime').addClass(
-				"glyphicon glyphicon-remove form-control-feedback");
-
-	}
-}
-
-function freetime() {
-	var btime = $('#btime').val();
-	var etime = $('#etime').val();
-	var reetime = /^(0?[1-9]|1[0-9]|2[0-4])$/;
-	var teetime = reetime.test(etime);
-	var tebtime = rebtime.test(btime);
-	teetime = teetime && (etime > btime) && tebtime;
-
-	if (teetime) {
-
-		if ($('#detime').hasClass("has-error")) {
-			$('#detime').removeClass("has-error");
-		}
-		if (!$('#detime').hasClass("has-success")) {
-			$('#detime').addClass("has-success");
-		}
-		$('#setime').removeClass();
-		$('#setime').addClass("glyphicon glyphicon-ok form-control-feedback");
-
-	} else {
-
-		if ($('#detime').hasClass("has-success")) {
-			$('#detime').removeClass("has-success");
-		}
-		if (!$('#detime').hasClass("has-error")) {
-			$('#detime').addClass("has-error");
-		}
-		$('#setime').removeClass();
-		$('#setime').addClass(
-				"glyphicon glyphicon-remove form-control-feedback");
-
-	}
-	frebtime();
-}
-
 function fnSignup() {
 
 	var name = $('#name').val();
@@ -439,11 +384,6 @@ function fnSignup() {
 	var tepwdequ = password1 == password2;
 	var rename = /^.{1,20}$/;
 	var tename = rename.test(name);
-	var reetime = /[0-1]\d|2[0-4]/;
-	var teetime = reetime.test(etime);
-	var rebtime = /[0-1]\d|2[0-4]/;
-	var tebtime = rebtime.test(btime);
-	teetime = teetime && (etime >= btime);
 
 	var param = {};
 
@@ -451,16 +391,18 @@ function fnSignup() {
 	param.password = password1;
 	param.name = name;
 	param.sex = sex;
+	param.storeId = TSTORE.storeId;
+	param.isWorking = "false";
+	param.defaultWorkingTimePeriod = btime + "";
+	param.actualWorkingTimePeriod = etime + "";
 
-	return false;
-
-	if (telnum && tename && tepwd && tepwdequ && tebtime && teetime) {
+	if (telnum && tename && tepwd && tepwdequ) {
 		$.ajax({
 			type : 'POST',
 			data : JSON.stringify(param),
 			contentType : 'application/json',
 			dataType : 'json',
-			url : pageContext + '/wtf/consignup',
+			url : pageContext + '/wtf/babersignup',
 			async : false,
 			success : function(data) {
 				if (data > 0)
@@ -473,6 +415,10 @@ function fnSignup() {
 			}
 		})
 	}
+	
+	$('#myModal').modal('hide');
+	location.reload(true);
+
 	return false;
 }
 
@@ -481,9 +427,14 @@ function fnServiceSignup() {
 }
 
 function bvalue(a, b, c) {
-	alert("item.name");
+	TBABER = a;
+	//alert("item.name");
 	$("#pp1").text(a);
 	$("#pp2").text(b + " " + c);
+	$("#pp3").text(a);
+	$("#pp4").text(b + " " + c);
+	$("#pp5").text(a);
+	$("#pp6").text(b + " " + c);
 }
 
 function setCookie(cname, cvalue, exdays) {
@@ -517,3 +468,61 @@ function checkCookie() {
 function clearCookie(name) {
 	setCookie(name, "", -1);
 }
+
+function deleteBaber() {
+	var param = {};
+	param.baberId = TBABER;
+	$.ajax({
+		type : 'POST',
+		data : JSON.stringify(param),
+		contentType : 'application/json',
+		dataType : 'json',
+		url : pageContext + '/wtf/deletebaber',
+		async : false,
+		success : function(data) {
+			if (data > 0)
+			{
+				alert("删除成功");
+				tgpl(1);
+			}
+			else
+				alert("删除失败！")
+		},
+		error : function(e) {
+			alert("system error");
+		}
+	})
+	$('#deleteModal').modal('hide');
+	location.reload(true);
+}
+
+function addService()
+{
+	var sname = $('#servicename').val();
+	var sprice = $('#sprice').val();
+	var param = {};
+	param.name = sname;
+	param.price = sprice;
+	param.baberId = TBABER;
+	$.ajax({
+		type : 'POST',
+		data : JSON.stringify(param),
+		contentType : 'application/json',
+		dataType : 'json',
+		url : pageContext + '/wtf/addservice',
+		async : false,
+		success : function(data) {
+			if (data > 0)
+			{
+				alert("添加成功")
+			}
+			else
+				alert("添加失败！")
+		},
+		error : function(e) {
+			alert("system error");
+		}
+	})
+	$('#serviceModal').modal('hide');
+}
+

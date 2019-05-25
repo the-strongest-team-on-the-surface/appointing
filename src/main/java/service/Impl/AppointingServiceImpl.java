@@ -126,17 +126,21 @@ public class AppointingServiceImpl implements AppointingService {
 		// TODO 自动生成的方法存根
 		return consumerDao.changeConsumerInfo(consumerId, name, telNum, password, sex);
 	}
-	public int insertServiceInfo(int serviceId, String name, int duration, int baberId) {
+	public int insertServiceInfo(int serviceId, String name, int price, int duration, int baberId) {
 		// TODO 自动生成的方法存根
-		return serviceDao.insertServiceInfo(serviceId, name, duration, baberId);
+		return serviceDao.insertServiceInfo(serviceId, name, price, duration, baberId);
 	}
-	public int changeServiceInfo(int serviceId, String name, int duration, int baberId) {
+	public int changeServiceInfo(int serviceId, String name, int price, int duration, int baberId) {
 		// TODO 自动生成的方法存根
-		return serviceDao.changeServiceInfo(serviceId, name, duration, baberId);
+		return serviceDao.changeServiceInfo(serviceId, name, price, duration, baberId);
 	}
 	public List<entiy.Service> quaryServiceInfo(int baberId) {
 		// TODO 自动生成的方法存根
 		return serviceDao.quaryServiceInfo(baberId);
+	}
+	public int deleteBaber(int baberId) {
+		// TODO 自动生成的方法存根
+		return baberDao.deleteBaber(baberId);
 	}
 	
 

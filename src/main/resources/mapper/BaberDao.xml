@@ -56,7 +56,12 @@
 		SELECT *
 		FROM baber
 		WHERE store_id = #{storeId}
-	
 	</select>
+	
+	<delete id="deleteBaber" parameterType="int">
+		DELETE
+		FROM baber
+		WHERE baber_id = #{baberId}
+	</delete>
 	
 </mapper>

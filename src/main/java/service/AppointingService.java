@@ -55,6 +55,7 @@ public interface AppointingService {
 			 String defaultWorkingTimePeriod,
 			 String actualWorkingTimePeriod);
 	List<Baber> quaryStoreBaber( int storeId);
+	int deleteBaber(int baberId);
 	
 	//customer
 	Consumer quaryConsumerPassword(String telNum);
@@ -63,8 +64,8 @@ public interface AppointingService {
 	int changeConsumerInfo(int consumerId, String name, String telNum, String password, boolean sex);
 	
 	//service
-	int insertServiceInfo(int serviceId, String name, int duration, int baberId);
-	int changeServiceInfo( int serviceId, String name, int duration, int baberId);
+	int insertServiceInfo(int serviceId, String name, int price, int duration, int baberId);
+	int changeServiceInfo( int serviceId, String name, int price, int duration, int baberId);
 	List<Service> quaryServiceInfo(int baberId);
 	
 }
