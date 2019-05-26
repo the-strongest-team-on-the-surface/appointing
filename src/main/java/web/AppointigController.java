@@ -100,9 +100,6 @@ public class AppointigController {
 	@ResponseBody
 	public int babersignup(@RequestBody Baber tel) {
 
-//		Baber temp = appointingServiceImpl.quaryBaberPassword(tel.getTelNum());
-//		if (temp.getTelNum().equals(tel.getTelNum()))
-//			return 0;
 		String btime = tel.getDefaultWorkingTimePeriod();
 		String etime = tel.getActualWorkingTimePeriod();
 		String ttime = "";
@@ -125,9 +122,6 @@ public class AppointigController {
 	@ResponseBody
 	public int consignup(@RequestBody Consumer tel) {
 
-		Consumer temp = appointingServiceImpl.quaryConsumerPassword(tel.getTelNum());
-		if (temp.getTelNum().equals(tel.getTelNum()))
-			return 0;
 		int result = appointingServiceImpl.insertConsumerInfo(tel.getConsumerId(), tel.getName(), tel.getTelNum(),
 				tel.getPassword(), tel.isSex());
 		return result;
@@ -136,9 +130,6 @@ public class AppointigController {
 	@RequestMapping(method = RequestMethod.POST, value = "/stosignup", produces = { "application/json; charset=utf-8" })
 	@ResponseBody
 	public int stosignup(@RequestBody Store tel) {
-		Store temp = appointingServiceImpl.quaryStorePassword(tel.getTelNum());
-		if (temp.getTelNum().equals(tel.getTelNum()))
-			return 0;
 		int result = appointingServiceImpl.insertStoreInfo(tel.getStoreId(), tel.getName(), tel.getcode(),
 				tel.getTelNum(), tel.getPassword(), tel.getDetailedAddress());
 		return result;

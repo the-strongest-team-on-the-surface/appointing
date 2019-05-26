@@ -16,7 +16,6 @@ var T;
 //查找地址
 $(function () {
     CONSUMERTEL=getCookie("1");
-    alert(CONSUMERTEL);
     var code = "0";
     $.get(pageContext + "/wtf/addr?code=" + code, function (addr) {
         
@@ -51,7 +50,7 @@ function initConsumerInfo(){
            CONSUMERID=consumer.consumerId;
            CONSUMERNAME=consumer.name;
            CONSUMERSEX=consumer.sex?"男":"女";
-           var img=$("<img alt='140x140' src='C:\\Users\\Administrator\\Desktop\\default3.jpg' class='img-circle' /><br>");
+           var img=$("<img alt='140x140' src='C:\\workspace\\default3.jpg' class='img-circle' /><br>");
            var tele1=$("<p>电话："+CONSUMERTEL+" </p><br>")
            var name1=$("<p>昵称："+CONSUMERNAME+" </p><br>")
            var sex1=$("<p>性别："+CONSUMERSEX+" </p><br>")
@@ -166,7 +165,7 @@ function show_stores(stores_info) {
         var th4 = $("<small id='storetel" + item.storeId + "'></small>").addClass("text-left").text(item.telNum);
 
         var tsmall = $("<small></small>").text("详细信息 ： " + item.detailedAddress);
-        var timg = $("<img alt='70x70' src='C:\\Users\\Administrator\\Desktop\\default1.jpg'></img>");
+        var timg = $("<img alt='70x70' src='C:\\workspace\\default1.jpg'></img>");
 
         tdiv1.append(tdiv2.append(timg)).append((tdiv3.append(th3).append(th4).append($("<br>")).append(tsmall))).appendTo("#stores");
 
@@ -248,7 +247,7 @@ function to_baber(id) {
             var paneltemp = $("<div class='panel panel-default'></div>");
             var panelhead = $("<div class='panel-heading'></div>");
             var header = $("<div class='header'></div>");
-            var image = $("<img alt='140x140' src='C:\\Users\\Administrator\\Desktop\\default1.jpg' class='img-circle' />");
+            var image = $("<img alt='140x140' src='C:\\workspace\\default3.jpg' class='img-circle' />");
             var baberinfo = $("<p class='panel-title col-sm-offset-2'></p>");
             var sex=item.sex?"男":"女";
             var a = $("<a data-toggle='collapse' data-parent='#accordion' id='baber" + item.baberId + "' name='" + item.actualWorkingTimePeriod + "' href='#collapse" + item.baberId + "'> 姓名：" + item.name + "  性别：" + sex + "</br>电话：" + item.telNum + "</br>详细信息：" + "sdkjflksdajflkdssdjfllksajf" + "</a>");

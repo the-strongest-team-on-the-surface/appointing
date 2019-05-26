@@ -101,7 +101,7 @@ function ttable(pageinfo, pn) {
 										"<span class='glyphicon glyphicon-plus'></span>");
 
 						var th3 = $("<h4></h4>").addClass("text-left").text(
-								item.name + item.baberId);
+								item.name);
 						var tsmall = $("<small></small>").text(
 								"手机 ： " + item.telNum);
 						var timg = $(
